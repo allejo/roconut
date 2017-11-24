@@ -1,0 +1,67 @@
+.ansi_color_fg_black {
+    color: #073642;
+}
+
+.ansi_color_fg_red {
+    color: #dc322f;
+}
+
+.ansi_color_fg_green {
+    color: #859900;
+}
+
+.ansi_color_fg_yellow {
+    color: #b58900;
+}
+
+.ansi_color_fg_blue {
+    color: #268bd2;
+}
+
+.ansi_color_fg_magenta {
+    color: #d33682;
+}
+
+.ansi_color_fg_cyan {
+    color: #2aa198;
+}
+
+.ansi_color_fg_white {
+    color: #eee8d5;
+}
+
+.ansi_color_fg_brblack {
+    color: #002b36;
+}
+
+.ansi_color_fg_brred {
+    color: #cb4b16;
+}
+
+.ansi_color_fg_brgreen {
+    color: #586e75;
+}
+
+.ansi_color_fg_bryellow {
+    color: #657b83;
+}
+
+.ansi_color_fg_brblue {
+    color: #839496;
+}
+
+.ansi_color_fg_brmagenta {
+    color: #6c71c4;
+}
+
+.ansi_color_fg_brcyan {
+    color: #93a1a1;
+}
+
+.ansi_color_fg_brwhite {
+    color: #fdf6e3;
+}
+
+.message {
+    background-color: #343a40;
+}

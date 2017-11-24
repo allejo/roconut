@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ paste.title }}</h1>
+        <p>
+            by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}
+        </p>
+
+        {% if encrypted %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <h4>Private Paste</h4>
+                <p>If you lose this URL, there is no way of retrieving this paste.</p>
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+
+        <section class="message">
+            <pre>{{ message | raw }}</pre>
+        </section>
+    </div>
+{% endblock %}

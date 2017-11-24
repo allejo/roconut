@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Privacy Policy</h1>
+
+        <p><em>This policy is subject to change without notice to its users.</em></p>
+
+        <h2>Personal information collected and how it's used</h2>
+        <ul>
+            <li>
+                <strong>Username</strong> - We collect and store a user created username (which could include part or all of the user's actual legal name), and is a unique identifier that the user creates, and is publically shown. Additionally, a unique numeric identifier is associated with all accounts, and this is also publically exposed.
+            </li>
+            <li>
+                <strong>IP Address</strong> - We collect and store the IP addresses that are used to access our services. These are used for administrative purposes and to aid in preventing or blocking abuse. These are not publically exposed.
+            </li>
+            <li>
+                <strong>Browser Information</strong> - We collect and store information about the user's browser, which can include the browser name and version, as well as basic information about the operating system. This is information that every browser sends to every website, and is generally recorded automatically in the web server logs.
+            </li>
+            <li>
+                <strong>User Generated Content</strong> - Users are able to post user generated content that could include personal information in the form of text. Except in cases of private messages between users, this would generally be publicly available.
+            </li>
+        </ul>
+
+        <h2>Pastes</h2>
+        <p>
+            All content uploaded to this website is stored in a database only accessible to the site operator. Content submitted to this website is stored in an encrypted format, however there are two different behaviors for submitting content to this website. The content is encrypted with a random key and is stored in the database, but the key:
+        </p>
+        <ol>
+            <li>is stored in the database. The key is stored in order to grant access to the user a history of uploaded messages.</li>
+            <li>is not stored in the database; this option is available as the "Don't save to account" checkbox. With this option, the uploaded content will only be accessible to the site operator in an encrypted format without a key to decrypt it.</li>
+        </ol>
+
+        <h2>Information Disclosure</h2>
+        <p>
+            We value your privacy, so we do our best to limit the disclosure of your personal information. As mentioned in the "Personal information collected and how it is used" section, some information will be exposed to the public.
+        </p>
+        <p>
+            At times, we may be required to disclose information for the purpose of preventing or combating abuse of our services, or due to a legal request (such as a court order). If such a situation arises, we will do our best to release as little information as possible to resolve the issue or request.
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    providers:
+        bzbb:
+            entity:
+                class: AppBundle:User
+                property: bzid
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        default:
+            guard:
+                authenticators:
+                    - allejo\BZBBAuthenticationBundle\Security\BZBBAuthenticator
+            logout:
+                path:   /logout
+                target: /
+
+            pattern: ^/(new|user)
+
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
