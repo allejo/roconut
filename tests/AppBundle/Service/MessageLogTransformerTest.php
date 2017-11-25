@@ -22,7 +22,10 @@ class MessageLogTransformerTest extends \PHPUnit_Framework_TestCase
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_SERVER_MSG);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_SERVER_MSG)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('[SERVER', $transformed);
     }
@@ -37,7 +40,10 @@ FEED;
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_TEAM_CHAT);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_TEAM_CHAT)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('cu all later', $transformed);
     }
@@ -53,7 +59,10 @@ FEED;
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_ADMIN_CHAT);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_ADMIN_CHAT)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('A message sent to the admin channel', $transformed);
     }
@@ -73,7 +82,10 @@ FEED;
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_JOIN_PART);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_JOIN_PART)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('signing off', $transformed);
         $this->assertNotContains('joining as a', $transformed);
@@ -96,7 +108,10 @@ FEED;
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_IPS_ADDRESS);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_IPS_ADDRESS)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('127.0.0.1', $transformed);
         $this->assertNotContains('127.0.0.2', $transformed);
@@ -160,7 +175,10 @@ FEED;
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_KILL_MSG);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_KILL_MSG)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('killed by', $transformed);
     }
@@ -222,10 +240,56 @@ FEED;
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
-        $transformed = $transformer->displayMessages(MessageLogTransformer::HIDE_FLAG_ACTION);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_FLAG_ACTION)
+            ->displayMessages()
+        ;
 
         $this->assertNotContains('grabbed', $transformed);
         $this->assertNotContains('High Speed', $transformed);
         $this->assertNotContains('Wings flag', $transformed);
+    }
+
+    public function testGettingPrivateMessages()
+    {
+        $chat = <<<FEED
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+\e[38;2;255;255;255m\e[5m[Bertman->]\e[0;1m \e[36mmessage from Bertman\e[0;1m
+\e[38;2;255;255;255m\e[5m[->02345n-xOwU][action message from me]\e[0;1m
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+\e[38;2;255;255;255m\e[5m[->Bertman]\e[0;1m \e[36mmessage to Bertman\e[0;1m
+\e[38;2;255;255;255m\e[5m[Bertman->]\e[0;1m \e[36mmessage from Bertman\e[0;1m
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $conversations = $transformer->findPrivateMessages();
+
+        $this->assertCount(2, $conversations);
+        $this->assertContains('Bertman', $conversations);
+        $this->assertContains('02345n-xOwU', $conversations);
+    }
+
+    public function testFilterPrivateMessages()
+    {
+        $chat = <<<FEED
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+\e[38;2;255;255;255m\e[5m[Bertman->]\e[0;1m \e[36mmessage from Bertman\e[0;1m
+\e[38;2;255;255;255m\e[5m[->02345n-xOwU][action message from me]\e[0;1m
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+\e[38;2;255;255;255m\e[5m[->Bertman]\e[0;1m \e[36mmessage to Bertman\e[0;1m
+\e[38;2;255;255;255m\e[5m[Bertman->]\e[0;1m \e[36mmessage from Bertman\e[0;1m
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+\e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $conversations = $transformer
+            ->filterPrivateMessages(['Bertman'])
+            ->displayMessages()
+        ;
+
+        $this->assertNotContains('02345n-xOwU', $conversations);
     }
 }

@@ -2,32 +2,91 @@
 
 namespace AppBundle\Service;
 
+/**
+ * Class MessageLogTransformer
+ */
 class MessageLogTransformer
 {
     const HIDE_SERVER_MSG  = 1;
-    const HIDE_DIRECT_MSG  = 2;   // @todo
+    const HIDE_PRIVATE_MSG = 2;
     const HIDE_TEAM_CHAT   = 4;
     const HIDE_ADMIN_CHAT  = 8;
     const HIDE_JOIN_PART   = 16;
     const HIDE_IPS_ADDRESS = 32;
     const HIDE_KILL_MSG    = 64;
     const HIDE_FLAG_ACTION = 128;
+    const HIDE_PUBLIC_MSG  = 256;
 
     private $rawMessageLog;
+    private $filterFlags;
+    private $onlyPmsFrom;
 
+    private static $privateMessageRegex = '#>\[(?:-&gt;)?([^]]*?)(?:-&gt;)?\]#';
+
+    /**
+     * MessageLogTransformer constructor.
+     *
+     * @param string $rawMessageLog
+     */
     public function __construct($rawMessageLog)
     {
         $this->rawMessageLog = $rawMessageLog;
     }
 
-    public function displayMessages($flags = null)
+    /**
+     * Filter the messages in this log based on the given bitwise flags.
+     *
+     * Define the set of flags by combining available flags with inclusive ors, `|`.
+     *
+     * @param int|null $flags Bitwise flags defining what message types to hide.
+     *
+     * @see MessageLogTransformer::HIDE_SERVER_MSG
+     * @see MessageLogTransformer::HIDE_PRIVATE_MSG
+     * @see MessageLogTransformer::HIDE_TEAM_CHAT
+     * @see MessageLogTransformer::HIDE_ADMIN_CHAT
+     * @see MessageLogTransformer::HIDE_JOIN_PART
+     * @see MessageLogTransformer::HIDE_IPS_ADDRESS
+     * @see MessageLogTransformer::HIDE_KILL_MSG
+     * @see MessageLogTransformer::HIDE_FLAG_ACTION
+     * @see MessageLogTransformer::HIDE_PUBLIC_MSG
+     *
+     * @return $this
+     */
+    public function filterLog($flags = null)
     {
-        if ($flags === null) {
+        $this->filterFlags = $flags;
+
+        return $this;
+    }
+
+    /**
+     * Filter the private messages by showing only those defined by this method.
+     *
+     * @param  string[] $players
+     *
+     * @return $this
+     */
+    public function filterPrivateMessages($players = array())
+    {
+        $this->onlyPmsFrom = $players;
+
+        return $this;
+    }
+
+    /**
+     * Get the filtered message log.
+     *
+     * @return string
+     */
+    public function displayMessages()
+    {
+        $flags = $this->filterFlags;
+
+        if ($flags === null && empty($this->onlyPmsFrom)) {
             return $this->rawMessageLog;
         }
 
-        $messages = $this->rawMessageLog;
-        $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">(\r\n|\n|\r)</span>#', $messages);
+        $messages = $this->getMessagesAsArray();
 
         foreach ($messages as &$line) {
             if ($flags & self::HIDE_SERVER_MSG) {
@@ -76,8 +135,44 @@ class MessageLogTransformer
                     continue;
                 }
             }
+            if ($flags & self::HIDE_PRIVATE_MSG) {
+                if (preg_match(self::$privateMessageRegex, $line)) {
+                    $line = '';
+                    continue;
+                }
+            }
+            if (!empty($this->onlyPmsFrom) || ($flags & self::HIDE_PRIVATE_MSG)) {
+                if (preg_match(self::$privateMessageRegex, $line)) {
+                    foreach ($this->onlyPmsFrom as $recipient) {
+                        if (!preg_match('#\[.*(' . $recipient . ').*\]#', $line)) {
+                            $line = '';
+                            continue;
+                        }
+                    }
+                }
+            }
         }
 
         return trim(implode("\n", array_filter($messages)));
+    }
+
+    /**
+     * Find unique private message conversations that happened in this message log.
+     *
+     * @return string[]
+     */
+    public function findPrivateMessages()
+    {
+        $conversations = array();
+        preg_match_all(self::$privateMessageRegex, $this->rawMessageLog, $conversations);
+
+        return array_unique($conversations[1]);
+    }
+
+    private function getMessagesAsArray()
+    {
+        $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">(\r\n|\n|\r)</span>#', $this->rawMessageLog);
+
+        return $messages;
     }
 }
