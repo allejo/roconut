@@ -11,7 +11,7 @@
 }
 
 .ansi_color_fg_yellow {
-    color: #b58900;
+    color: #ffd400;
 }
 
 .ansi_color_fg_blue {
@@ -23,11 +23,11 @@
 }
 
 .ansi_color_fg_cyan {
-    color: #2aa198;
+    color: #3cd6ca;
 }
 
 .ansi_color_fg_white {
-    color: #eee8d5;
+    color: #f3efe5;
 }
 
 .ansi_color_fg_brblack {
