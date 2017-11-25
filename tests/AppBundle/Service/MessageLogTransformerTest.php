@@ -109,7 +109,7 @@ FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
         $transformed = $transformer
-            ->filterLog(MessageLogTransformer::HIDE_IPS_ADDRESS)
+            ->filterLog(MessageLogTransformer::HIDE_IP_ADDRESS)
             ->displayMessages()
         ;
 

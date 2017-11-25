@@ -12,10 +12,15 @@ class MessageLogTransformer
     const HIDE_TEAM_CHAT   = 4;
     const HIDE_ADMIN_CHAT  = 8;
     const HIDE_JOIN_PART   = 16;
-    const HIDE_IPS_ADDRESS = 32;
+    const HIDE_IP_ADDRESS  = 32;
     const HIDE_KILL_MSG    = 64;
     const HIDE_FLAG_ACTION = 128;
     const HIDE_PUBLIC_MSG  = 256;
+
+    // Shortcuts for common filter combinations
+    const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
+    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION;
+    const SHOW_PRIVATE_MSG_ONLY = self::SHOW_CHAT_ONLY | self::HIDE_PUBLIC_MSG | self::HIDE_ADMIN_CHAT;
 
     private $rawMessageLog;
     private $filterFlags;
@@ -45,7 +50,7 @@ class MessageLogTransformer
      * @see MessageLogTransformer::HIDE_TEAM_CHAT
      * @see MessageLogTransformer::HIDE_ADMIN_CHAT
      * @see MessageLogTransformer::HIDE_JOIN_PART
-     * @see MessageLogTransformer::HIDE_IPS_ADDRESS
+     * @see MessageLogTransformer::HIDE_IP_ADDRESS
      * @see MessageLogTransformer::HIDE_KILL_MSG
      * @see MessageLogTransformer::HIDE_FLAG_ACTION
      * @see MessageLogTransformer::HIDE_PUBLIC_MSG
@@ -115,7 +120,7 @@ class MessageLogTransformer
                     continue;
                 }
             }
-            if ($flags & self::HIDE_IPS_ADDRESS) {
+            if ($flags & self::HIDE_IP_ADDRESS) {
                 if (preg_match('#<span.+ansi_color_fg_cyan">IPINFO:.+#', $line)) {
                     $line = '';
                     continue;
