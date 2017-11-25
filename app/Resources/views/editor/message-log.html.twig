@@ -31,6 +31,22 @@
                 <small id="noSaveHelp" class="form-text text-muted">This log will <strong>not</strong> be saved to your account meaning you will need to store the URL somewhere safe or risk losing the log.</small>
             </div>
 
+            <div class="form-group">
+                {{ form_label(form.chat_filter) }}
+                <div>
+                    {% for child in form.chat_filter.children %}
+                        <div class="form-check">
+                            <label class="form-check-label" for="{{ child.vars.id }}">
+                                {{ form_widget(child, { attr: {
+                                    class: 'form-check-input'
+                                }}) }}
+                                {{ child.vars.label }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
             {{ form_row(form.submit, { attr: {
                 class: 'btn btn-primary'
             }}) }}

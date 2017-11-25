@@ -36,6 +36,7 @@ class EditorController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
             $notSaved = (bool)$formData['no_save'];
+            $filter = array_reduce($formData['chat_filter'], function ($a, $b) { return $a | $b; });
 
             $key = bin2hex(random_bytes(16));
             $message = Crypto::encrypt_v1($formData['message'], $key);
@@ -47,6 +48,7 @@ class EditorController extends Controller
                 ->setMessage($message)
                 ->setEncrypted($notSaved)
                 ->setIp($request->getClientIp())
+                ->setFilter($filter)
             ;
 
             if (!$notSaved) {

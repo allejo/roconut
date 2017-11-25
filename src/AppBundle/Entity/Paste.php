@@ -57,6 +57,11 @@ class Paste
     private $status;
 
     /**
+     * @ORM\Column(type="integer", options={"unsigned":true})
+     */
+    private $filter;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="snippets")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
@@ -189,6 +194,24 @@ class Paste
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * @param mixed $filter
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
 
         return $this;
     }
