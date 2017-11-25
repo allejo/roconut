@@ -4,8 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Paste;
 use AppBundle\Form\PasteFormType;
-use AppBundle\Service\AnsiHtmlTransformer;
-use AppBundle\Service\AnsiTransformer;
 use AppBundle\Service\Crypto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,11 +37,8 @@ class EditorController extends Controller
             $formData = $form->getData();
             $notSaved = (bool)$formData['no_save'];
 
-            $transformer = new AnsiHtmlTransformer();
-            $message = $transformer->convert($formData['message']);
-
             $key = bin2hex(random_bytes(16));
-            $message = Crypto::encrypt_v1($message, $key);
+            $message = Crypto::encrypt_v1($formData['message'], $key);
 
             $paste = new Paste();
             $paste

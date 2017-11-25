@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Paste;
+use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\Crypto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +24,9 @@ class ViewController extends Controller
         /** @var Paste $paste */
         $paste = $em->getRepository('AppBundle:Paste')->find($id);
         $message = Crypto::decrypt_v1($paste->getMessage(), $key);
+
+        $ansiTransformer = new AnsiHtmlTransformer();
+        $message = $ansiTransformer->convert($message);
 
         return $this->render(':view:message-log.html.twig', [
             'paste' => $paste,
