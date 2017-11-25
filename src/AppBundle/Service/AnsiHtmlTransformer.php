@@ -118,7 +118,7 @@ class AnsiHtmlTransformer
         }
 
         if (is_array($fg)) {
-            return sprintf('</span><span style="color: %s%s">', sprintf('rgb(%s)', implode(',', $fg)), $as);
+            return sprintf('</span><span style="color: %s%s">', sprintf('#%02x%02x%02x', $fg[0], $fg[1], $fg[2]), $as);
         } else {
             return sprintf('</span><span class="ansi_color_bg_%s ansi_color_fg_%s">', $this->colorNames[$bg], $this->colorNames[$fg]);
         }
