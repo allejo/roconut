@@ -141,6 +141,12 @@ class MessageLogTransformer
                     continue;
                 }
             }
+            if ($flags & self::HIDE_PUBLIC_MSG) {
+                if (preg_match('#">.*: .+cyan">#', $line)) {
+                    $line = '';
+                    continue;
+                }
+            }
             if (!empty($this->onlyPmsFrom) || ($flags & self::HIDE_PRIVATE_MSG)) {
                 if (preg_match(self::$privateMessageRegex, $line)) {
                     foreach ($this->onlyPmsFrom as $recipient) {
