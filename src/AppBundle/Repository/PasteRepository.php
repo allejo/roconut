@@ -18,7 +18,7 @@ class PasteRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('p');
         $qb
-            ->andWhere('p.key IS NOT NULL')
+            ->andWhere('p.encryption_key IS NOT NULL')
             ->andWhere('p.status = :status')
             ->setParameter('status', PasteStatus::ACTIVE)
             ->andWhere('p.user = :user_id')

@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Paste;
 use AppBundle\Form\PasteFormType;
+use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\AnsiTransformer;
+use AppBundle\Service\Crypto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +38,12 @@ class EditorController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
             $notSaved = (bool)$formData['no_save'];
-            $key = bin2hex(random_bytes(16));
 
-            $transformer = new AnsiTransformer();
-            $message = $transformer->transform($formData['message'], $key);
+            $transformer = new AnsiHtmlTransformer();
+            $message = $transformer->convert($formData['message']);
+
+            $key = bin2hex(random_bytes(16));
+            $message = Crypto::encrypt_v1($message, $key);
 
             $paste = new Paste();
             $paste
@@ -65,7 +69,7 @@ class EditorController extends Controller
             ]);
         }
 
-        return $this->render(':editor:message-log.html.twig',[
+        return $this->render(':editor:message-log.html.twig', [
             'form' => $form->createView()
         ]);
     }

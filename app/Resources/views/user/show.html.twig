@@ -7,7 +7,7 @@
         <h1>Saved Public Messages</h1>
 
         {% for paste in pastes %}
-            <a href="{{ path('show_message_log', {id: paste.id, key: paste.key}) }}">{{ paste.title }}</a>
+            <a href="{{ path('show_message_log', {id: paste.id, key: paste.encryptionKey}) }}">{{ paste.title }}</a>
         {% endfor %}
     </div>
 {% endblock %}
