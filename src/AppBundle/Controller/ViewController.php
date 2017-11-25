@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Response\PlainTextResponse;
 use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\Crypto;
 use AppBundle\Service\MessageLogTransformer;
@@ -18,8 +19,9 @@ class ViewController extends Controller
     /**
      * @Route("/{id}/{key}/{format}", name="show_message_log", defaults={"format": "html"})
      *
-     * @param int    $id  The ID of the Paste we're accessing
-     * @param string $key The decryption key necessary to read this Paste
+     * @param int    $id     The ID of the Paste we're accessing
+     * @param string $key    The decryption key necessary to read this Paste
+     * @param string $format The format to which display the paste in
      *
      * @return Response
      */
@@ -42,6 +44,12 @@ class ViewController extends Controller
             ->filterLog($paste->getFilter())
             ->displayMessages()
         ;
+
+        if ($format === 'text') {
+            $message = htmlspecialchars_decode(strip_tags($message), ENT_QUOTES | ENT_HTML5);
+
+            return (new PlainTextResponse($message));
+        }
 
         return $this->render(':view:message-log.html.twig', [
             'paste' => $paste,
