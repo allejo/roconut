@@ -7,6 +7,27 @@
             by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}
         </p>
 
+        <section class="text-md-right mb-3">
+            <a class="btn btn-primary"
+               href="{{ path('show_message_log', {
+                   id: paste.id,
+                   key: paste.encryptionKey,
+                   format: 'text'
+               }) }}"
+            >
+                View Raw
+            </a>
+            <a class="btn btn-primary"
+               href="{{ path('show_message_log', {
+                   id: paste.id,
+                   key: paste.encryptionKey,
+                   download: 'text'
+               }) }}"
+            >
+                Download
+            </a>
+        </section>
+
         {% if encrypted %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <h4>Private Paste</h4>

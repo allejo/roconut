@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Response\DownloadResponse;
 use AppBundle\Response\PlainTextResponse;
 use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\Crypto;
@@ -45,10 +46,22 @@ class ViewController extends Controller
             ->displayMessages()
         ;
 
-        if ($format === 'text') {
-            $message = htmlspecialchars_decode(strip_tags($message), ENT_QUOTES | ENT_HTML5);
+        $downloadRequest = $request->get('download');
 
-            return (new PlainTextResponse($message));
+        if ($downloadRequest !== null || $format === 'text') {
+            $plainTextMessage = htmlspecialchars_decode(strip_tags($message), ENT_QUOTES | ENT_HTML5);
+
+            if ($format === 'text') {
+                return (new PlainTextResponse($plainTextMessage));
+            }
+
+            if ($downloadRequest === 'text') {
+                return (new DownloadResponse(
+                    $plainTextMessage,
+                    sprintf('%s.txt', $paste->getTitle()),
+                    DownloadResponse::TEXT_TYPE
+                ));
+            }
         }
 
         return $this->render(':view:message-log.html.twig', [
