@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6aa890f3ca55cca1b88f35963dfb0d78",
+    "content-hash": "acbc1331bbe6cafa967a2e0e32cef37e",
     "packages": [
         {
             "name": "allejo/bzbb-authentication-bundle",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/allejo/BZBBAuthenticationBundle.git",
-                "reference": "2bf9dba5251225ba663ef0603daacf427983fd9a"
+                "reference": "5ab6b2dc5afe4dbf6fdca00b36b40e64e2f6f0c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/allejo/BZBBAuthenticationBundle/zipball/2bf9dba5251225ba663ef0603daacf427983fd9a",
-                "reference": "2bf9dba5251225ba663ef0603daacf427983fd9a",
+                "url": "https://api.github.com/repos/allejo/BZBBAuthenticationBundle/zipball/5ab6b2dc5afe4dbf6fdca00b36b40e64e2f6f0c6",
+                "reference": "5ab6b2dc5afe4dbf6fdca00b36b40e64e2f6f0c6",
                 "shasum": ""
             },
             "type": "symfony-bundle",
@@ -44,7 +44,7 @@
             "keywords": [
                 "bzflag"
             ],
-            "time": "2017-11-24 08:19:40"
+            "time": "2017-12-02T03:02:54+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -3431,9 +3431,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "allejo/bzbb-authentication-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

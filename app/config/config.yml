@@ -70,7 +70,7 @@ swiftmailer:
 
 # BZBBAuthenticationBundle Configuration
 bzbb_authentication:
+    user_class: AppBundle\Entity\User
     routes:
         login_route: 'login'
         success_route: 'new_message_log'
-    groups: []
