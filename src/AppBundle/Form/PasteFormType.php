@@ -33,6 +33,7 @@ class PasteFormType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => true,
+                'label' => 'Chat Filter(s)',
             ])
             ->add('no_save', CheckboxType::class, [
                 'required' => false,
