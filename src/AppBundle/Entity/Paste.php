@@ -71,6 +71,7 @@ class Paste
     {
         $this->created = new \DateTime();
         $this->status = PasteStatus::ACTIVE;
+        $this->filter = 0;
     }
 
     /**
