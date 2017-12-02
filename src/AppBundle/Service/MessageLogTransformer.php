@@ -16,10 +16,12 @@ class MessageLogTransformer
     const HIDE_KILL_MSG    = 64;
     const HIDE_FLAG_ACTION = 128;
     const HIDE_PUBLIC_MSG  = 256;
+    const HIDE_SILENCED    = 512;
+    const HIDE_PAUSING     = 1024;
 
     // Shortcuts for common filter combinations
     const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
-    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION;
+    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION | self::HIDE_SILENCED | self::HIDE_PAUSING;
     const SHOW_PRIVATE_MSG_ONLY = self::SHOW_CHAT_ONLY | self::HIDE_PUBLIC_MSG | self::HIDE_ADMIN_CHAT;
 
     private $rawMessageLog;
@@ -148,6 +150,18 @@ class MessageLogTransformer
             }
             if ($flags & self::HIDE_PUBLIC_MSG) {
                 if (preg_match('#">.*: .+cyan">#', $line)) {
+                    $line = '';
+                    continue;
+                }
+            }
+            if ($flags & self::HIDE_SILENCED) {
+                if (preg_match('#brwhite">\n.+ Silenced#', $line)) {
+                    $line = '';
+                    continue;
+                }
+            }
+            if ($flags & self::HIDE_PAUSING) {
+                if (preg_match('#black">:.+([Pp]aused|Resumed)#', $line)) {
                     $line = '';
                     continue;
                 }

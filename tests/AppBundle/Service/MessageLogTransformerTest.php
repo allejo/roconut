@@ -292,4 +292,54 @@ FEED;
 
         $this->assertNotContains('02345n-xOwU', $conversations);
     }
+
+    public function testIgnoreSilenced()
+    {
+        $chat = <<<FEED
+Sovicos Silenced\e[0;1m
+Sherpas Silenced\e[0;1m
+santomi Silenced\e[0;1m
+Gauss Silenced\e[0;1m
+Gausss Silenced\e[0;1m
+RogueOne Silenced\e[0;1m
+ente Silenced\e[0;1m
+\e[4m\e[37mMessage of the day: \e[0;1m
+\e[37m* BZFlag 2.4.12 is now available. Download now!\e[0;1m
+\e[33m\e[4m[SERVER->]\e[0;1m \e[36mGlobal login approved!\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_SILENCED)
+            ->displayMessages()
+        ;
+
+        $this->assertNotContains('Gauss Silenced', $transformed);
+        $this->assertContains('BZFlag 2.4.12 is now available.', $transformed);
+    }
+
+    public function testIgnorePausing()
+    {
+        $chat = <<<FEED
+\e[38;2;255;0;255mclick click boom\e[30m: has unpaused\e[0;1m
+\e[38;2;255;0;255mclick click boom\e[30m: Resumed\e[0;1m
+\e[38;2;255;0;0mtomthenator\e[30m: dropped Purple Team flag\e[0;1m
+\e[38;2;255;255;255m[Team] Indy\e[38;2;255;255;255m: \e[36ma message from Indy\e[0;1m
+\e[38;2;255;0;0msage\e[30m: signing off from 127.0.0.1\e[0;1m
+\e[38;2;255;255;255msage\e[30m: joining as an observer from 127.0.0.1\e[0;1m
+\e[38;2;255;255;255m[Team] Indy\e[38;2;255;255;255m: \e[36manother message from Indy\e[0;1m
+\e[38;2;255;0;255mclick click boom\e[30m: has paused\e[0;1m
+\e[38;2;255;0;255mclick click boom\e[30m: Paused\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_PAUSING)
+            ->displayMessages()
+        ;
+
+        $this->assertNotContains('click click boom', $transformed);
+        $this->assertContains('Indy', $transformed);
+        $this->assertContains('sage', $transformed);
+    }
 }
