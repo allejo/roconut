@@ -6,8 +6,30 @@
     <div class="container">
         <h1>Saved Public Messages</h1>
 
-        {% for paste in pastes %}
-            <a href="{{ path('show_message_log', {id: paste.id, key: paste.encryptionKey}) }}">{{ paste.title }}</a>
-        {% endfor %}
+        <p>These are your messages that you have uploaded and have saved to your account. You will not see messages not saved to your account</p>
+
+        <table class="table table-striped">
+            <thead>
+                <th>Title</th>
+                <th>Created On</th>
+            </thead>
+
+            <tbody>
+                {% for paste in pastes %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_message_log', {id: paste.id, key: paste.encryptionKey}) }}">{{ paste.title }}</a>
+                        </td>
+                        <td>
+                            {{ paste.created | date('M d, Y h:ia') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">You have no pastes</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
