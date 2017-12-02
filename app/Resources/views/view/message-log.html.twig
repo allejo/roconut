@@ -1,32 +1,49 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}{{ paste.title }}{% endblock %}
+
 {% block body %}
     <div class="container">
-        <h1>{{ paste.title }}</h1>
-        <p>
-            by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}
-        </p>
-
-        <section class="text-md-right mb-3">
-            <a class="btn btn-primary"
-               href="{{ path('show_message_log', {
-                   id: paste.id,
-                   key: paste.encryptionKey,
-                   format: 'text'
-               }) }}"
-            >
-                View Raw
-            </a>
-            <a class="btn btn-primary"
-               href="{{ path('show_message_log', {
-                   id: paste.id,
-                   key: paste.encryptionKey,
-                   download: 'text'
-               }) }}"
-            >
-                Download
-            </a>
-        </section>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <h1>{{ paste.title }}</h1>
+                <p>
+                    by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}
+                </p>
+            </div>
+            <div class="col-md-6">
+                <section class="text-md-right">
+                    {% if paste.user == app.user %}
+                        <a class="btn btn-secondary"
+                           href="{{ path('edit_message_log', {
+                               id: paste.id,
+                               key: key,
+                           }) }}"
+                        >
+                            Edit
+                        </a>
+                    {% endif %}
+                    <a class="btn btn-primary"
+                       href="{{ path('show_message_log', {
+                           id: paste.id,
+                           key: key,
+                           format: 'text'
+                       }) }}"
+                    >
+                        View Raw
+                    </a>
+                    <a class="btn btn-primary"
+                       href="{{ path('show_message_log', {
+                           id: paste.id,
+                           key: key,
+                           download: 'text'
+                       }) }}"
+                    >
+                        Download
+                    </a>
+                </section>
+            </div>
+        </div>
 
         {% if encrypted %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">

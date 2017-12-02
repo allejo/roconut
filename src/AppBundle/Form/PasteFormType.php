@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Paste;
+use AppBundle\Form\DataTransformer\MessageFilterBitwiseTransformer;
 use AppBundle\Service\MessageLogTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -14,38 +16,54 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PasteFormType extends AbstractType
 {
+    private $bitwiseTransformer;
+
+    public function __construct(MessageFilterBitwiseTransformer $bitwiseTransformer)
+    {
+        $this->bitwiseTransformer = $bitwiseTransformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', TextType::class, [])
             ->add('message', TextareaType::class, [])
-            ->add('chat_filter', ChoiceType::class, [
+            ->add('filter', ChoiceType::class, [
                 'choices' => [
                     'Hide Server Messages' => MessageLogTransformer::HIDE_SERVER_MSG,
                     'Hide Private Messages' => MessageLogTransformer::HIDE_PRIVATE_MSG,
                     'Hide Team Chat' => MessageLogTransformer::HIDE_TEAM_CHAT,
-                    'Hide Admin Chat' => MessageLogTransformer::HIDE_ALL_ADMIN,
+                    'Hide Admin Chat' => MessageLogTransformer::HIDE_ADMIN_CHAT,
                     'Hide Join & Part Messages' => MessageLogTransformer::HIDE_JOIN_PART,
                     'Hide IP Addresses' => MessageLogTransformer::HIDE_IP_ADDRESS,
                     'Hide Kill Messages' => MessageLogTransformer::HIDE_KILL_MSG,
                     'Hide Flag Messages' => MessageLogTransformer::HIDE_FLAG_ACTION,
                     'Hide Public Chat' => MessageLogTransformer::HIDE_PUBLIC_MSG,
+                    'Hide Silenced Players' => MessageLogTransformer::HIDE_SILENCED,
+                    'Hide Pausing' => MessageLogTransformer::HIDE_PAUSING,
                 ],
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Chat Filter(s)',
             ])
-            ->add('no_save', CheckboxType::class, [
+            ->add('encrypted', CheckboxType::class, [
                 'required' => false,
                 'label' => "Don't save to account"
             ])
             ->add('submit', SubmitType::class, [])
         ;
+
+        $builder
+            ->get('filter')
+            ->addModelTransformer($this->bitwiseTransformer)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
+        $resolver->setDefaults([
+            'data_class' => Paste::class
+        ]);
     }
 
     public function getBlockPrefix()

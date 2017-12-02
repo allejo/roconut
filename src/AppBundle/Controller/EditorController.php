@@ -7,67 +7,78 @@ use AppBundle\Form\PasteFormType;
 use AppBundle\Service\Crypto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("/new")
+ * @Route("/edit")
  */
 class EditorController extends Controller
 {
     /**
-     * @Route("/", name="content_editor")
+     * @Route("/message-log/{id}/{key}", name="edit_message_log")
+     *
+     * @param int $id The ID of the paste we're editing
+     *
+     * @return Response
      */
-    public function indexAction(Request $request)
+    public function editMessageLogAction(Request $request, $id, $key)
     {
-        return $this->render(':editor:index.html.twig', [
+        $em = $this->getDoctrine()->getManager();
+        /** @var Paste|null $paste */
+        $paste = $em->getRepository(Paste::class)->find($id);
 
-        ]);
-    }
+        if ($paste === null) {
+            throw $this->createNotFoundException('This paste does not exist');
+        }
 
-    /**
-     * @Route("/message-log", name="new_message_log")
-     */
-    public function newPasteAction(Request $request)
-    {
-        $form = $this->createForm(PasteFormType::class, []);
+        if ($paste->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('This is not your paste to edit');
+        }
+
+        $message = Crypto::decrypt_v1($paste->getMessage(), $key);
+
+        if ($message === false) {
+            throw $this->createAccessDeniedException('You are using an invalid decryption key');
+        }
+
+        $form = $this->createForm(PasteFormType::class, $paste);
+
+        $form
+            ->add('title', TextType::class, [
+                'disabled' => true,
+            ])
+            ->add('encrypted', CheckboxType::class, [
+                'disabled' => true,
+            ])
+            ->add('message', TextareaType::class, [
+                'data' => Crypto::decrypt_v1($paste->getMessage(), $key),
+                'disabled' => true,
+            ])
+        ;
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
-            $notSaved = (bool)$formData['no_save'];
-            $filter = array_reduce($formData['chat_filter'], function ($a, $b) { return $a | $b; });
+            /** @var Paste $updatedPaste */
+            $updatedPaste = $form->getData();
+            $updatedPaste->setMessage($paste->getMessage());
 
-            $key = bin2hex(random_bytes(16));
-            $message = Crypto::encrypt_v1($formData['message'], $key);
-
-            $paste = new Paste();
-            $paste
-                ->setUser($this->getUser())
-                ->setTitle($formData['title'])
-                ->setMessage($message)
-                ->setEncrypted($notSaved)
-                ->setIp($request->getClientIp())
-                ->setFilter($filter)
-            ;
-
-            if (!$notSaved) {
-                $paste->setEncryptionKey($key);
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($paste);
+            $em->persist($updatedPaste);
             $em->flush();
 
             return $this->redirectToRoute('show_message_log', [
-                'id' => $paste->getId(),
+                'id' => $id,
                 'key' => $key,
-                'not_saved' => $notSaved,
             ]);
         }
 
-        return $this->render(':editor:message-log.html.twig', [
-            'form' => $form->createView()
+        return $this->render(':editor:message-log_edit.html.twig', [
+            'paste' => $paste,
+            'form' => $form->createView(),
         ]);
     }
 }

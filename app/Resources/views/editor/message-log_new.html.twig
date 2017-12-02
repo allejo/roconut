@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Create New /savemsgs Log{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Upload Saved Messages</h1>
+
+        {% include ':editor:message-log_form.html.twig' with { form: form } %}
+    </div>
+{% endblock %}

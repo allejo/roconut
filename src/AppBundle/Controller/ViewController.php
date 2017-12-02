@@ -37,6 +37,10 @@ class ViewController extends Controller
 
         $message = Crypto::decrypt_v1($paste->getMessage(), $key);
 
+        if ($message === false) {
+            throw $this->createNotFoundException('This paste does not exist');
+        }
+
         $ansiTransformer = new AnsiHtmlTransformer();
         $message = $ansiTransformer->convert($message);
 
@@ -66,6 +70,7 @@ class ViewController extends Controller
 
         return $this->render(':view:message-log.html.twig', [
             'paste' => $paste,
+            'key' => $key,
             'message' => $message,
             'encrypted' => (bool)$request->get('encrypted'),
         ]);

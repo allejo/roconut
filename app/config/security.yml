@@ -23,5 +23,5 @@ security:
                 target: /
 
     access_control:
-        - { path: ^/editor, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/edit, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/user, role: IS_AUTHENTICATED_FULLY }
