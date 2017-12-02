@@ -87,6 +87,8 @@ class MessageLogTransformer
      */
     public function displayMessages()
     {
+        $this->censorPersonalInfo();
+
         $flags = $this->filterFlags;
 
         if ($flags === null && empty($this->onlyPmsFrom)) {
@@ -199,5 +201,11 @@ class MessageLogTransformer
         $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">(\r\n|\n|\r)</span>#', $this->rawMessageLog);
 
         return $messages;
+    }
+
+    private function censorPersonalInfo()
+    {
+        $this->rawMessageLog = preg_replace('#(?<=Saved messages to: )(.+)(?=msg.+)#', '[redacted]/', $this->rawMessageLog);
+        $this->rawMessageLog = preg_replace('#(.+screenshots.+)(?=bzf.+)#', '[redacted]/', $this->rawMessageLog);
     }
 }

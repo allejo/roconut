@@ -342,4 +342,26 @@ FEED;
         $this->assertContains('Indy', $transformed);
         $this->assertContains('sage', $transformed);
     }
+
+    public function testRedactingUserPaths()
+    {
+        $chat = <<<FEED
+\e[38;2;255;0;0mtomthenator\e[30m: \e[37mkilled by \e[38;2;255;0;255mM1chael\e[37m\e[0;1m
+Saved messages to: /Users/allejo/Library/Application Support/BZFlag/msglog-YYYY-MM-DD_HH-DD-SS.txt\e[0;1m
+\e[38;2;255;0;255mM1chael\e[30m: grabbed Red Team flag\e[0;1m
+\e[38;2;255;255;255m\e[4m[->sage]\e[0;1m \e[36mwarning made, now follow thru\e[0;1m
+\e[38;2;255;255;255m[Team] sage\e[38;2;255;255;255m: \e[36mjesus\e[0;1m
+\e[38;2;255;255;255m[Team] sage\e[38;2;255;255;255m: \e[36mjust disgusting\e[0;1m
+/Users/allejo/Library/Application Support/BZFlag/screenshots/bzfi0177.png: 1600x900\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $transformed = $transformer
+            ->displayMessages()
+        ;
+
+        $this->assertNotContains('/Users/allejo/', $transformed);
+        $this->assertContains('[redacted]/msglog', $transformed);
+        $this->assertContains('[redacted]/bzf', $transformed);
+    }
 }
