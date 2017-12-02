@@ -14,6 +14,7 @@ security:
             security: false
 
         default:
+            anonymous: ~
             guard:
                 authenticators:
                     - allejo\BZBBAuthenticationBundle\Security\BZBBAuthenticator
@@ -21,12 +22,6 @@ security:
                 path:   /logout
                 target: /
 
-            pattern: ^/(new|user)
-
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        - { path: ^/editor, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user, role: IS_AUTHENTICATED_FULLY }
