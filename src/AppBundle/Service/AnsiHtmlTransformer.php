@@ -35,8 +35,8 @@ class AnsiHtmlTransformer
         $text = preg_replace('#\e\[(K|s|u|2J|2K|\d+(A|B|C|D|E|F|G|J|K|S|T)|\d+;\d+(H|f))#', '', $text);
         // remove character set sequences
         $text = preg_replace('#\e(\(|\))(A|B|[0-2])#', '', $text);
-        // remove blink sequence
-        $text = preg_replace('#\e\[5m#', '', $text);
+        // remove text attributes
+        $text = preg_replace('#\e\[[0-8]m#', '', $text);
 
         $text = htmlspecialchars($text, PHP_VERSION_ID >= 50400 ? ENT_QUOTES | ENT_SUBSTITUTE : ENT_QUOTES, $this->charset);
 
