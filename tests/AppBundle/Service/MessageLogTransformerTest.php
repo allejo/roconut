@@ -310,7 +310,6 @@ FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
         $transformed = $transformer
-            ->filterLog(MessageLogTransformer::HIDE_SILENCED)
             ->displayMessages()
         ;
 

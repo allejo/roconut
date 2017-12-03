@@ -41,7 +41,6 @@ class MessageFilterBitwiseTransformer implements DataTransformerInterface
             MessageLogTransformer::HIDE_KILL_MSG,
             MessageLogTransformer::HIDE_FLAG_ACTION,
             MessageLogTransformer::HIDE_PUBLIC_MSG,
-            MessageLogTransformer::HIDE_SILENCED,
             MessageLogTransformer::HIDE_PAUSING,
         ];
 

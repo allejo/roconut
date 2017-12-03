@@ -16,12 +16,11 @@ class MessageLogTransformer
     const HIDE_KILL_MSG    = 64;
     const HIDE_FLAG_ACTION = 128;
     const HIDE_PUBLIC_MSG  = 256;
-    const HIDE_SILENCED    = 512;
-    const HIDE_PAUSING     = 1024;
+    const HIDE_PAUSING     = 512;
 
     // Shortcuts for common filter combinations
     const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
-    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION | self::HIDE_SILENCED | self::HIDE_PAUSING;
+    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION | self::HIDE_PAUSING;
     const SHOW_PRIVATE_MSG_ONLY = self::SHOW_CHAT_ONLY | self::HIDE_PUBLIC_MSG | self::HIDE_ADMIN_CHAT;
 
     private $rawMessageLog;
@@ -156,12 +155,6 @@ class MessageLogTransformer
                     continue;
                 }
             }
-            if ($flags & self::HIDE_SILENCED) {
-                if (preg_match('#brwhite">\n.+ Silenced#', $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
             if ($flags & self::HIDE_PAUSING) {
                 if (preg_match('#black">:.+([Pp]aused|Resumed)#', $line)) {
                     $line = '';
@@ -203,9 +196,16 @@ class MessageLogTransformer
         return $messages;
     }
 
+    /**
+     * Remove any information that may be considered personal:
+     *
+     * - A player's path to screenshots or savemsgs since a player's name can be in the path
+     * - Hide silenced players, which are displayed at client launch
+     */
     private function censorPersonalInfo()
     {
         $this->rawMessageLog = preg_replace('#(?<=Saved messages to: )(.+)(?=msg.+)#', '[redacted]/', $this->rawMessageLog);
         $this->rawMessageLog = preg_replace('#(.+screenshots.+)(?=bzf.+)#', '[redacted]/', $this->rawMessageLog);
+        $this->rawMessageLog = preg_replace('#(?!<span.+brwhite">)(\r\n|\n|\r).+ Silenced</span><span.+#', '', $this->rawMessageLog);
     }
 }

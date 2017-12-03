@@ -39,7 +39,6 @@ class PasteFormType extends AbstractType
                     'Hide Kill Messages' => MessageLogTransformer::HIDE_KILL_MSG,
                     'Hide Flag Messages' => MessageLogTransformer::HIDE_FLAG_ACTION,
                     'Hide Public Chat' => MessageLogTransformer::HIDE_PUBLIC_MSG,
-                    'Hide Silenced Players' => MessageLogTransformer::HIDE_SILENCED,
                     'Hide Pausing' => MessageLogTransformer::HIDE_PAUSING,
                 ],
                 'multiple' => true,
