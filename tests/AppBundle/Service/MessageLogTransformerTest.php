@@ -4,8 +4,9 @@ namespace Tests\AppBundle\Service;
 
 use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\MessageLogTransformer;
+use PHPUnit\Framework\TestCase;
 
-class MessageLogTransformerTest extends \PHPUnit_Framework_TestCase
+class MessageLogTransformerTest extends TestCase
 {
     private function getHtml($log)
     {

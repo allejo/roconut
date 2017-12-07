@@ -3,8 +3,9 @@
 namespace Tests\AppBundle\Service;
 
 use AppBundle\Service\AnsiHtmlTransformer;
+use PHPUnit\Framework\TestCase;
 
-class AnsiHtmlTransformerTest extends \PHPUnit_Framework_TestCase
+class AnsiHtmlTransformerTest extends TestCase
 {
     public function testServerPrivateMessage()
     {
@@ -30,7 +31,7 @@ FEED;
         $message = $converter->convert($chat);
 
         $this->assertContains('ansi_color_fg_yellow', $message);
-        $this->assertContains('rgb(255,127,0)', $message);
+        $this->assertContains(sprintf('#%02x%02x%02x', 255, 127, 0), $message);
     }
 
     public function testKillAndFlagMessages()
@@ -44,8 +45,8 @@ FEED;
         $converter = new AnsiHtmlTransformer();
         $message = $converter->convert($chat);
 
-        $this->assertContains('<span style="color: rgb(255,0,0)">Red Player</span>', $message);
-        $this->assertContains('<span style="color: rgb(255,0,255)">Purple Player</span>', $message);
+        $this->assertContains('<span style="color: #ff0000">Red Player</span>', $message);
+        $this->assertContains('<span style="color: #ff00ff">Purple Player</span>', $message);
         $this->assertContains('<span class="ansi_color_bg_black ansi_color_fg_black">: grabbed Purple Team flag</span>', $message);
     }
 }
