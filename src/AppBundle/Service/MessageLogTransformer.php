@@ -55,6 +55,7 @@ class MessageLogTransformer
      * @see MessageLogTransformer::HIDE_KILL_MSG
      * @see MessageLogTransformer::HIDE_FLAG_ACTION
      * @see MessageLogTransformer::HIDE_PUBLIC_MSG
+     * @see MessageLogTransformer::HIDE_PAUSING
      *
      * @return $this
      */
@@ -99,7 +100,7 @@ class MessageLogTransformer
 
         foreach ($messages as &$line) {
             if ($flags & self::HIDE_SERVER_MSG) {
-                if (preg_match('#^<span.+">\[SERVER\-&gt;]#', $line)) {
+                if (preg_match('#^<span.+">(?:\[)?SERVER(?:\-&gt;])?#', $line)) {
                     $line = '';
                     continue;
                 }
