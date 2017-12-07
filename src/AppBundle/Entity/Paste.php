@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -76,161 +78,106 @@ class Paste
         $this->filter = 0;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @return string
-     */
-    public function getEncryptionKey()
+    public function getEncryptionKey(): string
     {
         return $this->encryption_key;
     }
 
-    /**
-     * @param $encryption_key
-     * @return $this
-     */
-    public function setEncryptionKey($encryption_key)
+    public function setEncryptionKey(string $encryption_key): self
     {
         $this->encryption_key = $encryption_key;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @param mixed $message
-     */
-    public function setMessage($message)
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEncrypted()
+    public function getEncrypted(): bool
     {
         return $this->encrypted;
     }
 
-    /**
-     * @param mixed $encrypted
-     */
-    public function setEncrypted($encrypted)
+    public function setEncrypted(bool $encrypted): self
     {
         $this->encrypted = $encrypted;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    /**
-     * @param mixed $ip
-     */
-    public function setIp($ip)
+    public function setIp(string $ip): self
     {
         $this->ip = $ip;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }
 
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status)
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFilter()
+    public function getFilter(): int
     {
         return $this->filter;
     }
 
-    /**
-     * @param mixed $filter
-     */
-    public function setFilter($filter)
+    public function setFilter(int $filter): self
     {
         $this->filter = $filter;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
+    public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
+    public function setUser(UserInterface $user): self
     {
         $this->user = $user;
 
