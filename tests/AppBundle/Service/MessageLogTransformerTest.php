@@ -30,6 +30,34 @@ FEED;
         $this->assertNotContains('[SERVER', $transformed);
     }
 
+    public function testIgnoreServerPublicMessages()
+    {
+        $chat = <<<FEED
+
+----------------------------------------
+Messages saved: Sat Mar 11 09:50:43 2017
+----------------------------------------
+
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36mYou are in observer mode.\e[0;1m
+\e[38;2;255;0;0mdog1\e[30m: grabbed Green Team flag\e[0;1m
+\e[38;2;0;255;0mBrise\e[30m: dropped Wings flag\e[0;1m
+\e[38;2;0;255;0mOjoyeux\e[30m: dropped Grenade flag\e[0;1m
+\e[38;2;0;255;0mBrise\e[30m: dropped Cloaking flag\e[0;1m
+\e[38;2;0;255;0mhuda zaba\e[30m: \e[37mkilled by \e[38;2;255;0;0mDarth Vader\e[37m\e[0;1m
+\e[33mSERVER\e[33m: \e[36mhuda zaba's rampage was ended by Darth Vader.\e[0;1m
+\e[33mSERVER\e[33m: \e[36mOUCH! huda zaba just got nailed by Genocide!\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_SERVER_MSG)
+            ->displayMessages()
+        ;
+
+        $this->assertNotContains('You are in observer mode.', $transformed);
+        $this->assertNotContains('SERVER', $transformed);
+    }
+
     public function testIgnoreTeamMessages()
     {
         $chat = <<<FEED
