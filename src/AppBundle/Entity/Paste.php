@@ -27,6 +27,7 @@ class Paste
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(max="2500000", maxMessage="This log is too long. It should be under 250KB worth of text.")
      * @ORM\Column(type="text", nullable=false)
      */
     private $message;
