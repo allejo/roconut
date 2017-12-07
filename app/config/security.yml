@@ -24,4 +24,5 @@ security:
 
     access_control:
         - { path: ^/edit, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/new, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/user, role: IS_AUTHENTICATED_FULLY }
