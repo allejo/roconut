@@ -212,7 +212,7 @@ class MessageLogTransformer
         // If the message log has a timestamp heading, the spans of that element are consistent with the rest of the log
         // so we need to reformat things to be consistent and make our parsing easier.
         $matches = [];
-        preg_match_all('#(<span.+fg_white">\s?-+\s.+\s-+\s\s)</span>#', $this->rawMessageLog, $matches);
+        preg_match_all('#(<span.+fg_white">\s*-+\s*.+\s*-+\s*)</span>#', $this->rawMessageLog, $matches);
         $matches = array_filter($matches);
 
         if (count($matches) === 2) {
