@@ -20,6 +20,7 @@ class Paste
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(max="128", charset="UTF-8")
      * @ORM\Column(type="text", nullable=false, length=128)
      */
     private $title;
