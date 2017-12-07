@@ -54,6 +54,7 @@ class ViewController extends Controller
 
         if ($downloadRequest !== null || $format === 'text') {
             $plainTextMessage = htmlspecialchars_decode(strip_tags($message), ENT_QUOTES | ENT_HTML5);
+            $plainTextMessage = preg_replace('#\R#', "\r\n", $plainTextMessage);
 
             if ($format === 'text') {
                 return (new PlainTextResponse($plainTextMessage));
