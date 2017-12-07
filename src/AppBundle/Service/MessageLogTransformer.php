@@ -212,12 +212,12 @@ class MessageLogTransformer
         // If the message log has a timestamp heading, the spans of that element are consistent with the rest of the log
         // so we need to reformat things to be consistent and make our parsing easier.
         $matches = [];
-        preg_match_all('#(<span.+fg_white">\s*-+\s*.+\s*-+\s*)</span>#', $this->rawMessageLog, $matches);
+        preg_match_all('#(<span.+fg_white">\R*-+\R*.+\R*-+\R*)</span>#', $this->rawMessageLog, $matches);
         $matches = array_filter($matches);
 
         if (count($matches) === 2) {
             $trimmed = trim($matches[1][0]);
-            $result = sprintf("%s\n</span><span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>", $trimmed);
+            $result = sprintf("%s\r\n</span><span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>", $trimmed);
 
             $this->rawMessageLog = str_replace($matches[0][0], $result, $this->rawMessageLog);
         }
@@ -230,7 +230,7 @@ class MessageLogTransformer
      */
     private function getMessagesAsArray()
     {
-        $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">(\r\n|\n|\r)</span>#', $this->rawMessageLog);
+        $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R</span>#', $this->rawMessageLog);
 
         return $messages;
     }
