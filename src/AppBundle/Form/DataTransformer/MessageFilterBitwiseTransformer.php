@@ -62,6 +62,6 @@ class MessageFilterBitwiseTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        return array_reduce($value, function ($a, $b) { return $a | $b; });
+        return (int)array_reduce($value, function ($a, $b) { return $a | $b; });
     }
 }
