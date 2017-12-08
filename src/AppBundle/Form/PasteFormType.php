@@ -40,6 +40,7 @@ class PasteFormType extends AbstractType
                     'Hide Flag Messages' => MessageLogTransformer::HIDE_FLAG_ACTION,
                     'Hide Public Chat' => MessageLogTransformer::HIDE_PUBLIC_MSG,
                     'Hide Pausing' => MessageLogTransformer::HIDE_PAUSING,
+                    'Hide Client Messages' => MessageLogTransformer::HIDE_CLIENT_MSG,
                 ],
                 'multiple' => true,
                 'expanded' => true,
