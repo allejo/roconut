@@ -140,7 +140,7 @@ class MessageLogTransformer
                 }
             }
             if ($flags & self::HIDE_FLAG_ACTION) {
-                if (preg_match('#<span.+ansi_color_fg_black">.+(captured|grabbed|dropped).+flag#', $line)) {
+                if (preg_match('#<span.+ansi_color_fg_black">.+(captured|grabbed|dropped|locked on me)(?:.+flag)?#', $line)) {
                     $line = '';
                     continue;
                 }

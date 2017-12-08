@@ -275,6 +275,10 @@ FEED;
 \e[38;2;255;0;0mSriracha\e[30m: \e[37mkilled by \e[38;2;0;255;0mOb1wG!\e[37m\e[0;1m
 \e[33mSERVER\e[33m: \e[36mSriracha's rampage was ended by Ob1wG!.\e[0;1m
 \e[38;2;0;255;0mSabotI\e[30m: grabbed Wings flag\e[0;1m
+\e[38;2;0;255;0msentinel\e[30m: dropped Super Bullet flag\e[0;1m
+\e[38;2;0;255;0msentinel\e[30m: grabbed Stealth flag\e[0;1m
+\e[38;2;255;0;0mLuz Mala\e[30m: locked on me\e[0;1m
+\e[38;2;0;255;0mZehra\e[30m: dropped Wings flag\e[0;1m
 FEED;
         $converted = $this->getHtml($chat);
         $transformer = new MessageLogTransformer($converted);
@@ -286,6 +290,7 @@ FEED;
         $this->assertNotContains('grabbed', $transformed);
         $this->assertNotContains('High Speed', $transformed);
         $this->assertNotContains('Wings flag', $transformed);
+        $this->assertNotContains('locked on me', $transformed);
     }
 
     public function testGettingPrivateMessages()
