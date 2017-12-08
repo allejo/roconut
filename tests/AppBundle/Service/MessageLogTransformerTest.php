@@ -197,6 +197,10 @@ FEED;
 \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: dropped Seer flag\e[0;1m
 \e[38;2;255;0;0mSriracha\e[30m: dropped Guided Missile flag\e[0;1m
 \e[38;2;0;255;0mOb1wG!\e[30m: dropped Wings flag\e[0;1m
+\e[38;2;255;0;0mOjoyeux\e[30m: destroyed by the server\e[0;1m
+\e[38;2;255;0;0mhuda zaba\e[30m: destroyed by the server\e[0;1m
+\e[38;2;255;0;0mal.lbert\e[30m: grabbed Red Team flag\e[0;1m
+\e[38;2;255;0;0mal.lbert\e[30m: destroyed by the server\e[0;1m
 \e[38;2;0;255;0mOb1wG!\e[30m: \e[37mkilled by \e[38;2;255;0;0mSriracha\e[37m\e[0;1m
 \e[38;2;255;0;0mSriracha\e[30m: \e[37mkilled by \e[38;2;0;255;0mOb1wG!\e[37m\e[0;1m
 \e[33mSERVER\e[33m: \e[36mSriracha's rampage was ended by Ob1wG!.\e[0;1m
@@ -210,6 +214,11 @@ FEED;
         ;
 
         $this->assertNotContains('killed by', $transformed);
+        $this->assertNotContains('was destroyed by', $transformed);
+        $this->assertNotContains('destroyed by the server', $transformed);
+        $this->assertContains('nailed by Genocide!', $transformed);
+        $this->assertContains('joining as a tank', $transformed);
+        $this->assertContains('grabbed Red Team flag', $transformed);
     }
 
     public function testIgnoreFlagMessages()

@@ -134,7 +134,7 @@ class MessageLogTransformer
                 $line = preg_replace('#(<span.+ansi_color_fg_black">.+)from \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#', '$1', $line);
             }
             if ($flags & self::HIDE_KILL_MSG) {
-                if (preg_match('#<span.+ansi_color_fg_white">(was fried by|was destroyed by|felt the effects of|didn\'t see|was turned into swiss|got skewered by|killed by|blew myself up).+#', $line)) {
+                if (preg_match('#<span.+ansi_color_fg_(white|black)">(?:\: )?(was fried by|destroyed by the server|was destroyed by|felt the effects of|didn\'t see|was turned into swiss|got skewered by|killed by|blew myself up).+#', $line)) {
                     $line = '';
                     continue;
                 }
