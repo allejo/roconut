@@ -17,6 +17,7 @@ class MessageLogTransformer
     const HIDE_FLAG_ACTION = 128;
     const HIDE_PUBLIC_MSG  = 256;
     const HIDE_PAUSING     = 512;
+    const HIDE_CLIENT_MSG  = 1024;
 
     // Shortcuts for common filter combinations
     const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
@@ -28,6 +29,7 @@ class MessageLogTransformer
     private $onlyPmsFrom;
 
     private static $privateMessageRegex = '#>\[(?:-&gt;)?([^]]*?)(?:-&gt;)?\]#';
+    private static $newLinePattern = "<span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>";
 
     /**
      * MessageLogTransformer constructor.
@@ -95,7 +97,7 @@ class MessageLogTransformer
             return $this->rawMessageLog;
         }
 
-        $this->processTimeStampHeading();
+        $this->prepareMessages();
         $messages = $this->getMessagesAsArray();
 
         foreach ($messages as &$line) {
@@ -163,6 +165,12 @@ class MessageLogTransformer
                     continue;
                 }
             }
+            if ($flags & self::HIDE_CLIENT_MSG) {
+                if (substr_count($line, '<span') === 1 && substr_count($line, '</span>') === 1) {
+                    $line = '';
+                    continue;
+                }
+            }
             if (!empty($this->onlyPmsFrom) || ($flags & self::HIDE_PRIVATE_MSG)) {
                 if (preg_match(self::$privateMessageRegex, $line)) {
                     foreach ($this->onlyPmsFrom as $recipient) {
@@ -207,6 +215,15 @@ class MessageLogTransformer
     /**
      * Handle any special cases where the raw message log needs to be reformatted.
      */
+    private function prepareMessages()
+    {
+        $this->processTimeStampHeading();
+        $this->processGotShotByMessages();
+    }
+
+    /**
+     * Reformat the messages timestamp heading with better newlines.
+     */
     private function processTimeStampHeading()
     {
         // If the message log has a timestamp heading, the spans of that element are consistent with the rest of the log
@@ -217,9 +234,23 @@ class MessageLogTransformer
 
         if (count($matches) === 2) {
             $trimmed = trim($matches[1][0]);
-            $result = sprintf("%s\r\n</span><span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>", $trimmed);
+            $result = sprintf("%s\r\n</span>%s", $trimmed, self::$newLinePattern);
 
             $this->rawMessageLog = str_replace($matches[0][0], $result, $this->rawMessageLog);
+        }
+    }
+
+    /**
+     * "Got shot by" messages are formatted differently, so this method will fix it.
+     */
+    private function processGotShotByMessages()
+    {
+        $matches = [];
+        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(Got shot by.+)</span>#', $this->rawMessageLog, $matches);
+
+        foreach ($matches[0] as $match) {
+            $t = str_replace(["\r", "\n"], '', $match);
+            $this->rawMessageLog = str_replace($match, sprintf("%s%s%s", self::$newLinePattern, $t, self::$newLinePattern), $this->rawMessageLog);
         }
     }
 

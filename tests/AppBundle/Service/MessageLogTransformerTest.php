@@ -406,4 +406,100 @@ FEED;
         $this->assertContains('[redacted]/msglog', $transformed);
         $this->assertContains('[redacted]/bzf', $transformed);
     }
+
+    public function testHidingClientMessages()
+    {
+        $chat = <<<FEED
+
+----------------------------------------
+Messages saved: Fri Nov 24 20:22:09 2017
+----------------------------------------
+
+\e[0;1m
+\e[31mBZFlag version: 2.4.10.20170314-MAINT-mac64xc721-SDL2 (0221)\e[0;1m
+\e[33mCopyright (c) 1993-2017 Tim Riker\e[0;1m
+\e[36mDistributed under the terms of the LGPL or MPL\e[0;1m
+\e[32mAuthor: Chris Schoeneman <crs23@bigfoot.com>\e[0;1m
+\e[36mMaintainer: Tim Riker <Tim@Rikers.org>\e[0;1m
+\e[34mAudio Driver: coreaudio\e[0;1m
+\e[35mOpenGL Driver: Intel HD Graphics 4000 OpenGL Engine\e[0;1m
+\e[4m\e[37mMessage of the day: \e[0;1m
+\e[37m* BZFlag 2.4.12 is now available. Download now!\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/bgrondin/telelink-trans.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/cfinch/Suntrust_textures.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/gbratley/Spazzy%20McGee_fence-barbs.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/gbratley/Spazzy%20McGee_fence-chainlink.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/gbratley/blackbox-boxwall1.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/gbratley/wall-dullgrey-4.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/caution_green.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/caution_red.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/concrete-jigsaw-light.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/greeble_heavy%20copy.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/greeble_mid%20copy.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/sun_main_walls2.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/thin_twoxfourwindows.png\e[0;1m
+\e[30mdownloading: http://images.bzflag.org/pmatous/transparent/Trans-100.png\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36mGlobal login approved!\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36mBZFlag server 2.4.11.20170824-DEVEL-linux-gnu-SDL, http://BZFlag.org/\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*                                                                         *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*              Welcome to Planet MoFo: Apocalypse In Action!              *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*                                                                         *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*       Lots of Wing Jumps, No Shot Limits, & Reasonable Reasoning        *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*  No Team Killing, spamming, & *NO CHEATING* No flooding, No Asshattery  *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m* Registered players get more love - Register at http://forums.bzflag.org *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*          Like us on Facebook! facebook.com/ApocalypseInAction           *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m* The 'teamflaggeno' plugin is in use. YOUR team flag is your geno flag!  *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*          See '/help geno' as well as '/help' for more details!!         *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*   Be On The Look Out For The Exclusive & Elusive 'Air Strike' Flag!!!!  *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*                                                                         *\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36mInappropriate Callsigns Will Be Banned\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m...This Space For Rent\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36mYou are in observer mode.\e[0;1m
+\e[33m[Admin] SERVER\e[33m: \e[36mcosmix is now listening in on all chat.\e[0;1m
+\e[38;2;255;0;0mBond - James Bond\e[30m: dropped Airstrike flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: dropped Green Team flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: \e[37mwas destroyed by \e[38;2;255;0;0mSriracha\e[37m's guided missile\e[0;1m
+\e[38;2;0;255;0mOb1wG!\e[30m: \e[37mfelt the effects of \e[38;2;255;0;0mBond - James Bond\e[37m's shockwave\e[0;1m
+\e[38;2;255;0;0mBond - James Bond\e[30m: grabbed Burrow flag\e[0;1m
+\e[38;2;0;255;0mOb1wG!\e[30m: grabbed Agility flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: grabbed Shield flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: dropped Shield flag\e[0;1m
+\e[38;2;0;255;0mOb1wG!\e[30m: \e[37mkilled by \e[38;2;255;0;0mstuka\e[37m\e[0;1m
+\e[38;2;0;255;0mOb1wG!\e[30m: dropped Agility flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: \e[37mkilled by \e[38;2;255;0;0mstuka\e[37m\e[0;1m
+\e[33mSERVER\e[33m: \e[36mOUCH! SabotI just got nailed by Genocide!\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: grabbed Shock Wave flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: dropped Shock Wave flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: grabbed High Speed flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: dropped High Speed flag\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: grabbed Toast flag\e[0;1m
+Got shot by Yukiai01 (Red Team) with GM\e[0;1m
+\e[38;2;0;255;0mSabotI\e[30m: grabbed Bacon flag\e[0;1m
+\e[38;2;0;255;0mZehra\e[30m: \e[37mwas destroyed by \e[5m\e[38;2;255;0;0mYukiai01\e[0;1m\e[37m's guided missile\e[0;1m
+\e[38;2;255;0;0mOjoyeux\e[30m: dropped Stealth flag\e[0;1m
+\e[5m\e[38;2;255;0;0mYukiai01\e[0;1m\e[30m: \e[37mwas destroyed by \e[38;2;0;255;0mZehra\e[37m's guided missile\e[0;1m
+\e[38;2;0;255;0mZehra\e[30m: dropped Laser flag\e[0;1m
+Got shot by Yukiai01 (Red Team) with GM\e[0;1m
+\e[33m\e[5m[SERVER->]\e[0;1m \e[36m9 shots left\e[0;1m
+\e[38;2;255;0;0mOjoyeux\e[30m: grabbed Stealth flag\e[0;1m
+\e[30mLooking at Yukiai01 (Red Team) with Super Bullet\e[0;1m
+\e[30mLooking at Yukiai01 (Red Team) with Super Bullet\e[0;1m
+FEED;
+        $converted = $this->getHtml($chat);
+        $transformer = new MessageLogTransformer($converted);
+        $transformed = $transformer
+            ->filterLog(MessageLogTransformer::HIDE_CLIENT_MSG)
+            ->displayMessages()
+        ;
+
+        $this->assertNotContains('Messages saved:', $transformed);
+        $this->assertNotContains('BZFlag version: 2.4.10', $transformed);
+        $this->assertNotContains('OpenGL Driver: Intel HD Graphics', $transformed);
+        $this->assertNotContains('downloading: http://images.bzflag', $transformed);
+        $this->assertNotContains('Got shot by Yukia', $transformed);
+        $this->assertContains('grabbed Toast flag', $transformed);
+        $this->assertContains('grabbed Bacon flag', $transformed);
+    }
 }
