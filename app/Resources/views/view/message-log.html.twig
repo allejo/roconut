@@ -48,7 +48,7 @@
         {% if encrypted %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <h4>Private Paste</h4>
-                <p>If you lose this URL, there is no way of retrieving this paste.</p>
+                <p class="mb-0">If you lose this URL, there is no way of retrieving this paste.</p>
 
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -57,7 +57,7 @@
         {% endif %}
 
         <section class="message p-3">
-            <pre>{{ message | raw }}</pre>
+            <pre class="mb-0">{{ message | raw }}</pre>
         </section>
     </div>
 {% endblock %}
