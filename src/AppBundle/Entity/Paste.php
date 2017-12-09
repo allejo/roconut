@@ -78,17 +78,17 @@ class Paste
         $this->filter = 0;
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getCreated(): \DateTime
+    public function getCreated()
     {
         return $this->created;
     }
 
-    public function getEncryptionKey(): string
+    public function getEncryptionKey()
     {
         return $this->encryption_key;
     }
@@ -100,7 +100,7 @@ class Paste
         return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -112,7 +112,7 @@ class Paste
         return $this;
     }
 
-    public function getMessage(): string
+    public function getMessage()
     {
         return $this->message;
     }
@@ -124,7 +124,7 @@ class Paste
         return $this;
     }
 
-    public function getEncrypted(): bool
+    public function getEncrypted()
     {
         return $this->encrypted;
     }
@@ -136,7 +136,7 @@ class Paste
         return $this;
     }
 
-    public function getIp(): string
+    public function getIp()
     {
         return $this->ip;
     }
@@ -148,7 +148,7 @@ class Paste
         return $this;
     }
 
-    public function getStatus(): int
+    public function getStatus()
     {
         return $this->status;
     }
@@ -160,7 +160,7 @@ class Paste
         return $this;
     }
 
-    public function getFilter(): int
+    public function getFilter()
     {
         return $this->filter;
     }
@@ -172,7 +172,7 @@ class Paste
         return $this;
     }
 
-    public function getUser(): UserInterface
+    public function getUser()
     {
         return $this->user;
     }
