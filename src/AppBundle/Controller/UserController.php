@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -14,10 +14,8 @@ class UserController extends Controller
 {
     /**
      * @Route("/pastes", name="user_pastes")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function pastesListAction(): Response
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -26,8 +24,8 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        $pastes = $this->getDoctrine()
-            ->getRepository('AppBundle:Paste')->findAllPublic($user);
+        $pasteRepository = $this->getDoctrine()->getRepository('AppBundle:Paste');
+        $pastes = $pasteRepository->findPublicPartialPastesBy($user);
 
         return $this->render(':user:show.html.twig', [
             'user' => $user,
