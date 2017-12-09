@@ -71,7 +71,7 @@ class ViewController extends Controller
             'paste' => $paste,
             'key' => $key,
             'message' => $message,
-            'encrypted' => (bool)$request->get('encrypted'),
+            'encrypted' => (bool)$request->get('not_saved'),
         ]);
     }
 }
