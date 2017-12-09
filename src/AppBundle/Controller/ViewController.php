@@ -23,22 +23,20 @@ class ViewController extends Controller
      * @param int    $id     The ID of the Paste we're accessing
      * @param string $key    The decryption key necessary to read this Paste
      * @param string $format The format to which display the paste in
-     *
-     * @return Response
      */
-    public function viewAction(Request $request, $id, $key, $format)
+    public function viewAction(Request $request, $id, $key, $format): Response
     {
         $em = $this->getDoctrine()->getManager();
         $paste = $em->getRepository('AppBundle:Paste')->find($id);
 
-        if ($paste === null || $key !== $paste->getEncryptionKey()) {
+        if ($paste === null) {
             throw $this->createNotFoundException('This paste does not exist');
         }
 
         $message = Crypto::decrypt_v1($paste->getMessage(), $key);
 
         if ($message === false) {
-            throw $this->createNotFoundException('This paste does not exist');
+            throw $this->createNotFoundException('This paste could not be decrypted with the given key.');
         }
 
         $ansiTransformer = new AnsiHtmlTransformer();
