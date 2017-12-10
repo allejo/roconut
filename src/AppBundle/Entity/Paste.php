@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Paste
 {
+    const TITLE_LENGTH = 128;
+    const MESSAGE_LENGTH = 2500000;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -22,14 +25,14 @@ class Paste
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="128", charset="UTF-8")
+     * @Assert\Length(max=Paste::TITLE_LENGTH, maxMessage="This title is too long. It should be under {{ limit }} characters.", charset="UTF-8")
      * @ORM\Column(type="text", nullable=false, length=128)
      */
     private $title;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="2500000", maxMessage="This log is too long. It should be under 250KB worth of text.")
+     * @Assert\Length(max=Paste::MESSAGE_LENGTH, maxMessage="This log is too long. It should be under ~250KB worth of text.")
      * @ORM\Column(type="text", nullable=false)
      */
     private $message;

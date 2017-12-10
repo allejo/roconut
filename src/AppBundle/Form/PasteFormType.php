@@ -26,8 +26,16 @@ class PasteFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, [])
-            ->add('message', TextareaType::class, [])
+            ->add('title', TextType::class, [
+                'attr' => [
+                    'maxlength' => Paste::TITLE_LENGTH,
+                ],
+            ])
+            ->add('message', TextareaType::class, [
+                'attr' => [
+                    'maxlength' => Paste::MESSAGE_LENGTH,
+                ],
+            ])
             ->add('filter', ChoiceType::class, [
                 'choices' => [
                     'Hide Server Messages' => MessageLogTransformer::HIDE_SERVER_MSG,
