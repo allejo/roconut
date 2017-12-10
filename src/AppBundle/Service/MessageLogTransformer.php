@@ -154,7 +154,7 @@ class MessageLogTransformer
                 }
             }
             if ($flags & self::HIDE_PUBLIC_MSG) {
-                if (preg_match('#">.*: .+cyan">#', $line)) {
+                if (preg_match('#.+"(.+)">[\w]+</span><span style="\\1">: </span>.+#', $line)) {
                     $line = '';
                     continue;
                 }
