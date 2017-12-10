@@ -170,6 +170,11 @@ class MessageLogTransformer
                     $line = '';
                     continue;
                 }
+
+                if (substr_count($line, '<span class="ansi_color_bg_black ansi_color_fg_black">: /set ') > 0) {
+                    $line = '';
+                    continue;
+                }
             }
             if (!empty($this->onlyPmsFrom) || ($flags & self::HIDE_PRIVATE_MSG)) {
                 if (preg_match(self::$privateMessageRegex, $line)) {
