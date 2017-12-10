@@ -166,7 +166,7 @@ class MessageLogTransformer
                 }
             }
             if ($flags & self::HIDE_CLIENT_MSG) {
-                if (substr_count($line, '<span') === 1 && substr_count($line, '</span>') === 1) {
+                if (substr_count($line, '<span class') === 1 && substr_count($line, '</span>') === 1) {
                     $line = '';
                     continue;
                 }
@@ -218,7 +218,7 @@ class MessageLogTransformer
     private function prepareMessages()
     {
         $this->processTimeStampHeading();
-        $this->processGotShotByMessages();
+        $this->processOddLineBreakClientMessages();
     }
 
     /**
@@ -241,12 +241,16 @@ class MessageLogTransformer
     }
 
     /**
-     * "Got shot by" messages are formatted differently, so this method will fix it.
+     * Certain client-side messages are formatted differently, so this method will fix/standardize them.
+     *
+     * - "Got shot by"
+     * - "Paused"
+     * - "Resumed"
      */
-    private function processGotShotByMessages()
+    private function processOddLineBreakClientMessages()
     {
         $matches = [];
-        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(Got shot by.+)</span>#', $this->rawMessageLog, $matches);
+        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(Paused|Resumed|Got shot by.+)</span>#', $this->rawMessageLog, $matches);
 
         foreach ($matches[0] as $match) {
             $t = str_replace(["\r", "\n"], '', $match);
