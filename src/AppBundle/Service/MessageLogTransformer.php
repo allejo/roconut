@@ -128,11 +128,19 @@ class MessageLogTransformer
                 }
             }
             if ($flags & self::HIDE_IP_ADDRESS) {
+                // "IPINFO:" messages that are displayed on join for admins
                 if (preg_match('#<span.+ansi_color_fg_cyan">IPINFO:.+#', $line)) {
                     $line = '';
                     continue;
                 }
 
+                // Messages sent to players via /playerlist
+                if (preg_match('#yellow">.*\[SERVER-&gt;\].*\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}.*#', $line)) {
+                    $line = '';
+                    continue;
+                }
+
+                // Remove IPs from joins and parts
                 $line = preg_replace('#(<span.+ansi_color_fg_black">.+)from \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#', '$1', $line);
             }
             if ($flags & self::HIDE_KILL_MSG) {
