@@ -81,7 +81,7 @@ class MessageLogTransformerTest extends TestCase
 \e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
 \e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
 FEED;
-        $converted = $this->getHtml($chat);
+        $converted = self::ansiToHtml($chat);
         $transformer = new MessageLogTransformer($converted);
         $conversations = $transformer->findPrivateMessages();
 
@@ -102,7 +102,7 @@ FEED;
 \e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
 \e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
 FEED;
-        $converted = $this->getHtml($chat);
+        $converted = self::ansiToHtml($chat);
         $transformer = new MessageLogTransformer($converted);
         $conversations = $transformer
             ->filterPrivateMessages(['Bertman'])
