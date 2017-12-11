@@ -1,0 +1,49 @@
+original: |-
+    \e[31mBZFlag version: 2.4.10.20170314-MAINT-mac64xc721-SDL2 (0221)\e[0;1m
+    \e[33mCopyright (c) 1993-2017 Tim Riker\e[0;1m
+    \e[36mDistributed under the terms of the LGPL or MPL\e[0;1m
+    \e[32mAuthor: Chris Schoeneman <crs23@bigfoot.com>\e[0;1m
+    \e[36mMaintainer: Tim Riker <Tim@Rikers.org>\e[0;1m
+    \e[34mAudio Driver: coreaudio\e[0;1m
+    \e[35mOpenGL Driver: Intel HD Graphics 5000 OpenGL Engine\e[0;1m
+    armchair Silenced\e[0;1m
+    McNugget Silenced\e[0;1m
+    MxMaster Silenced\e[0;1m
+    Sovicos Silenced\e[0;1m
+    Sherpas Silenced\e[0;1m
+    santomi Silenced\e[0;1m
+    Gauss Silenced\e[0;1m
+    Gausss Silenced\e[0;1m
+    RogueOne Silenced\e[0;1m
+    ente Silenced\e[0;1m
+    \e[4m\e[37mMessage of the day: \e[0;1m
+    \e[37m* BZFlag 2.4.12 is now available. Download now!\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36mGlobal login approved!\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36mBZFlag server 2.4.12.20171030-MAINT-linux-gnu-SDL, http://BZFlag.org/\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36mWelcome to this official server for BZFlag Leagues United. To play here, you\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36mmust be in the BZFlag Leagues United spawn group. Please contact an\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36madministrator if you need access.\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36m\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36m/maplist          - show a list of available maps\e[0;1m
+    \e[33m\e[4m[SERVER->]\e[0;1m \e[36m/mapchange <map>  - change the map\e[0;1m
+
+expected: |-
+    BZFlag version: 2.4.10.20170314-MAINT-mac64xc721-SDL2 (0221)
+    Copyright (c) 1993-2017 Tim Riker
+    Distributed under the terms of the LGPL or MPL
+    Author: Chris Schoeneman <crs23@bigfoot.com>
+    Maintainer: Tim Riker <Tim@Rikers.org>
+    Audio Driver: coreaudio
+    OpenGL Driver: Intel HD Graphics 5000 OpenGL Engine
+    Message of the day:
+    * BZFlag 2.4.12 is now available. Download now!
+    [SERVER->] Global login approved!
+    [SERVER->] BZFlag server 2.4.12.20171030-MAINT-linux-gnu-SDL, http://BZFlag.org/
+    [SERVER->] Welcome to this official server for BZFlag Leagues United. To play here, you
+    [SERVER->] must be in the BZFlag Leagues United spawn group. Please contact an
+    [SERVER->] administrator if you need access.
+    [SERVER->]
+    [SERVER->] /maplist          - show a list of available maps
+    [SERVER->] /mapchange <map>  - change the map
+
+filters: ~

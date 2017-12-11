@@ -1,0 +1,19 @@
+original: |-
+    \e[38;2;255;0;0mtomthenator\e[30m: \e[37mkilled by \e[38;2;255;0;255mM1chael\e[37m\e[0;1m
+    Saved messages to: /Users/allejo/Library/Application Support/BZFlag/msglog-YYYY-MM-DD_HH-DD-SS.txt\e[0;1m
+    \e[38;2;255;0;255mM1chael\e[30m: grabbed Red Team flag\e[0;1m
+    \e[38;2;255;255;255m\e[4m[->sage]\e[0;1m \e[36mwarning made, now follow thru\e[0;1m
+    \e[38;2;255;255;255m[Team] sage\e[38;2;255;255;255m: \e[36mjesus\e[0;1m
+    \e[38;2;255;255;255m[Team] sage\e[38;2;255;255;255m: \e[36mjust disgusting\e[0;1m
+    /Users/allejo/Library/Application Support/BZFlag/screenshots/bzfi0177.png: 1600x900\e[0;1m
+
+expected: |-
+    tomthenator: killed by M1chael
+    Saved messages to: [redacted]/msglog-YYYY-MM-DD_HH-DD-SS.txt
+    M1chael: grabbed Red Team flag
+    [->sage] warning made, now follow thru
+    [Team] sage: jesus
+    [Team] sage: just disgusting
+    [redacted]/bzfi0177.png: 1600x900
+
+filters: ~

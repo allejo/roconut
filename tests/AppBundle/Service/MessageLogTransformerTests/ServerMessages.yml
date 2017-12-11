@@ -1,0 +1,24 @@
+original: |-
+    \e[4m\e[37mMessage of the day: \e[0;1m
+    \e[37m* BZFlag 2.4.12 is now available. Download now!\e[0;1m
+    \e[33m\e[5m[SERVER->]\e[0;1m \e[36mBZFlag server 2.4.6.20160319-RC2-Win32VC10-SDL2, http://BZFlag.org/\e[0;1m
+    \e[33m\e[5m[SERVER->]\e[0;1m \e[36mYou are now an administrator!\e[0;1m
+    \e[33mSERVER\e[33m: \e[36mTesting say command (Zehra)\e[0;1m
+    \e[33m\e[5m[SERVER->]\e[0;1m \e[36mUnknown command [admin Testing admin chat]\e[0;1m
+    \e[38;2;0;255;0m[Admin] Zehra\e[38;2;0;255;0m: \e[36mTesting admin chat\e[0;1m
+    \e[38;2;0;255;0m[Team] Zehra\e[38;2;0;255;0m: \e[36mTeam chat\e[0;1m
+    \e[38;2;0;255;0mZehra\e[38;2;0;255;0m: \e[36mPublic chat\e[0;1m
+    \e[33m[Team] SERVER\e[33m: \e[36mKrugers is packing Genocide! Look out!\e[0;1m
+    \e[38;2;0;255;0mZehra\e[30m: /set _*\e[0;1m
+    \e[33m[Admin] SERVER\e[33m: \e[36man admin message sent by the server\e[0;1m
+
+expected: |-
+    Message of the day:
+    * BZFlag 2.4.12 is now available. Download now!
+    [Admin] Zehra: Testing admin chat
+    [Team] Zehra: Team chat
+    Zehra: Public chat
+    Zehra: /set _*
+
+filters:
+    - HIDE_SERVER_MSG

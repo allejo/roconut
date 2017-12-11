@@ -1,0 +1,34 @@
+original: |-
+    \e[38;2;255;0;255mclick click boom\e[30m: has unpaused\e[0;1m
+    \e[38;2;255;0;255mclick click boom\e[30m: Resumed\e[0;1m
+    \e[38;2;255;0;0mtomthenator\e[30m: dropped Purple Team flag\e[0;1m
+    \e[38;2;255;255;255m[Team] Indy\e[38;2;255;255;255m: \e[36ma message from Indy\e[0;1m
+    \e[38;2;255;0;0msage\e[30m: signing off from 127.0.0.1\e[0;1m
+    \e[38;2;255;255;255msage\e[30m: joining as an observer from 127.0.0.1\e[0;1m
+    \e[38;2;255;255;255m[Team] Indy\e[38;2;255;255;255m: \e[36manother message from Indy\e[0;1m
+    \e[38;2;255;0;255mclick click boom\e[30m: has paused\e[0;1m
+    \e[38;2;255;0;255mclick click boom\e[30m: Paused\e[0;1m
+    Paused\e[0;1m
+    \e[38;2;0;255;0mZehra\e[30m: has paused\e[0;1m
+    Resumed\e[0;1m
+    \e[38;2;0;255;0mZehra\e[30m: has unpaused\e[0;1m
+    \e[38;2;0;255;0mZehra\e[38;2;0;255;0m: \e[36mPaused\e[0;1m
+    \e[38;2;0;255;0mZehra has unpaused\e[0;1m
+    \e[33m\e[5m[SERVER->]\e[0;1m \e[36mAvailable help pages (use /help <page>)\e[0;1m
+    \e[38;2;0;255;0mZehra\e[38;2;0;255;0m: \e[36m?\e[0;1m
+
+expected: |-
+    tomthenator: dropped Purple Team flag
+    [Team] Indy: a message from Indy
+    sage: signing off from 127.0.0.1
+    sage: joining as an observer from 127.0.0.1
+    [Team] Indy: another message from Indy
+    Paused
+    Resumed
+    Zehra: Paused
+    Zehra has unpaused
+    [SERVER->] Available help pages (use /help <page>)
+    Zehra: ?
+
+filters:
+    - HIDE_PAUSING

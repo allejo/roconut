@@ -1,0 +1,22 @@
+original: |-
+    \e[33m[Admin] SERVER\e[33m: \e[36mA message sent for admins only\e[0;1m
+    \e[38;2;0;255;0mQuantumFoam\e[30m: grabbed Wings flag\e[0;1m
+    \e[38;2;255;0;0meyeoftheabyss\e[30m: dropped Guided Missile flag\e[0;1m
+    \e[38;2;255;0;0meyeoftheabyss\e[30m: \e[37mkilled by \e[38;2;0;255;0mQuantumFoam\e[37m\e[0;1m
+    \e[38;2;255;0;0mkubric\e[30m: dropped Identify flag\e[0;1m
+    \e[38;2;255;0;0mkubric\e[30m: signing off from 127.0.0.01\e[0;1m
+    \e[38;2;0;255;0mkubric\e[30m: joining as a tank from 127.0.0.1\e[0;1m
+    \e[38;2;0;255;0mTheSaint\e[30m: dropped High Speed flag\e[0;1m
+    \e[38;2;0;255;0mTheSaint\e[30m: \e[37mwas fried by \e[38;2;255;0;0mlaurax.\e[37m's laser\e[0;1m
+
+expected: |-
+    [Admin] SERVER: A message sent for admins only
+    QuantumFoam: grabbed Wings flag
+    eyeoftheabyss: dropped Guided Missile flag
+    eyeoftheabyss: killed by QuantumFoam
+    kubric: dropped Identify flag
+    TheSaint: dropped High Speed flag
+    TheSaint: was fried by laurax.'s laser
+
+filters:
+    - HIDE_JOIN_PART

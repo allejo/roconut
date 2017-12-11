@@ -1,0 +1,52 @@
+original: |-
+    Team flag was captured by Krugers (Red Team)\e[0;1m
+    \e[33mSERVER\e[33m: \e[36mScore! Krugers captured the flag!\e[0;1m
+    \e[38;2;255;0;0mKrugers\e[30m: grabbed Red Team flag\e[0;1m
+    \e[33m[Team] SERVER\e[33m: \e[36mKrugers is packing Genocide! Look out!\e[0;1m
+    \e[38;2;255;0;0mcatt\e[30m: joining as a tank from 127.0.0.232\e[0;1m
+    \e[38;2;0;255;0mcj\e[30m: \e[37mwas fried by \e[38;2;255;0;0mTechMonkey\e[37m's laser\e[0;1m
+    \e[33m[Admin] SERVER\e[33m: \e[36man admin message sent by the server\e[0;1m
+    \e[38;2;0;255;0m[Team] Zehra\e[38;2;0;255;0m: \e[36mTeam chat\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: grabbed Agility flag\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: dropped Agility flag\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: grabbed Machine Gun flag\e[0;1m
+    \e[33m\e[5m[SERVER->]\e[0;1m \e[36mUnknown command [admin Testing admin chat]\e[0;1m
+    \e[38;2;0;255;0m[Admin] Zehra\e[38;2;0;255;0m: \e[36mTesting admin chat\e[0;1m
+    \e[38;2;0;255;0mJAL\e[30m: grabbed Grenade flag\e[0;1m
+    \e[38;2;255;0;0mcatt\e[30m: \e[37mkilled by \e[38;2;0;255;0midle too long\e[37m\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: dropped Machine Gun flag\e[0;1m
+    Saved messages to: /home/allejo/.bzflag/msglog-YYYY-MM-DD_HH-DD-SS.txt\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: grabbed Triple Point flag\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: dropped Triple Point flag\e[0;1m
+    \e[38;2;0;255;0mJustAtarget\e[30m: \e[37mkilled by \e[38;2;255;0;0mcatt\e[37m\e[0;1m
+    \e[38;2;255;0;0mStormtrooper\e[30m: dropped Rapid Fire flag\e[0;1m
+    \e[38;2;0;255;0mcj\e[30m: grabbed Wings flag\e[0;1m
+    \e[38;2;255;0;0mStormtrooper\e[30m: \e[37mblew myself up\e[0;1m
+    \e[33mSERVER\e[33m: \e[36mStormtrooper has self-pwned, ending that rampage.\e[0;1m
+
+expected: |-
+    Team flag was captured by Krugers (Red Team)
+    SERVER: Score! Krugers captured the flag!
+    Krugers: grabbed Red Team flag
+    [Team] SERVER: Krugers is packing Genocide! Look out!
+    catt: joining as a tank from 127.0.0.232
+    cj: was fried by TechMonkey's laser
+    [Team] Zehra: Team chat
+    JustAtarget: grabbed Agility flag
+    JustAtarget: dropped Agility flag
+    JustAtarget: grabbed Machine Gun flag
+    [SERVER->] Unknown command [admin Testing admin chat]
+    JAL: grabbed Grenade flag
+    catt: killed by idle too long
+    JustAtarget: dropped Machine Gun flag
+    Saved messages to: [redacted]/msglog-YYYY-MM-DD_HH-DD-SS.txt
+    JustAtarget: grabbed Triple Point flag
+    JustAtarget: dropped Triple Point flag
+    JustAtarget: killed by catt
+    Stormtrooper: dropped Rapid Fire flag
+    cj: grabbed Wings flag
+    Stormtrooper: blew myself up
+    SERVER: Stormtrooper has self-pwned, ending that rampage.
+
+filters:
+    - HIDE_ADMIN_CHAT

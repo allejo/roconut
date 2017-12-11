@@ -1,0 +1,77 @@
+original: |-
+    \e[38;2;255;0;0mBond - James Bond\e[30m: dropped Airstrike flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: dropped Green Team flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: \e[37mwas destroyed by \e[38;2;255;0;0mSriracha\e[37m's guided missile\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: \e[37mfelt the effects of \e[38;2;255;0;0mBond - James Bond\e[37m's shockwave\e[0;1m
+    \e[38;2;255;0;0mBond - James Bond\e[30m: grabbed Burrow flag\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: grabbed Agility flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: grabbed Shield flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: dropped Shield flag\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: \e[37mkilled by \e[38;2;255;0;0mstuka\e[37m\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: dropped Agility flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: \e[37mkilled by \e[38;2;255;0;0mstuka\e[37m\e[0;1m
+    \e[33mSERVER\e[33m: \e[36mOUCH! SabotI just got nailed by Genocide!\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: grabbed Shock Wave flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: dropped Shock Wave flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: grabbed High Speed flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: dropped High Speed flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: grabbed Stealth flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: dropped Red Team flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: \e[37mkilled by \e[38;2;0;255;0mOb1wG!\e[37m\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: \e[37mwas destroyed by \e[38;2;255;0;0mSriracha\e[37m's guided missile\e[0;1m
+    \e[33mSERVER\e[33m: \e[36mSriracha is on a rampage!\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: \e[37mwas destroyed by \e[38;2;255;0;0mSriracha\e[37m's guided missile\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: grabbed Master Baiter flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: dropped Master Baiter flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: grabbed Ass Cannon flag\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: joining as a tank\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: dropped Ass Cannon flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: grabbed High Speed flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: dropped High Speed flag\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: grabbed Wings flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: grabbed Oscillation Overthruster flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: dropped Oscillation Overthruster flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: grabbed Identify flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: dropped Identify flag\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: grabbed High Speed flag\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: dropped High Speed flag\e[0;1m
+    \e[38;2;255;0;0mstuka\e[30m: grabbed High Speed flag\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: \e[37mkilled by \e[38;2;255;0;0mBond - James Bond\e[37m\e[0;1m
+    \e[38;2;255;0;0mSriracha\e[30m: dropped Guided Missile flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: dropped Stealth flag\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: \e[37mkilled by \e[38;2;255;0;0mSriracha\e[37m\e[0;1m
+    \e[38;2;255;0;0mSriracha\e[30m: grabbed Guided Missile flag\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: grabbed Seer flag\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: \e[37mkilled by \e[38;2;255;0;0mstuka\e[37m\e[0;1m
+    \e[38;2;0;255;0mTANKTOOBLIVION\e[30m: dropped Seer flag\e[0;1m
+    \e[38;2;255;0;0mSriracha\e[30m: dropped Guided Missile flag\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: dropped Wings flag\e[0;1m
+    \e[38;2;0;255;0mOb1wG!\e[30m: \e[37mkilled by \e[38;2;255;0;0mSriracha\e[37m\e[0;1m
+    \e[38;2;255;0;0mSriracha\e[30m: \e[37mkilled by \e[38;2;0;255;0mOb1wG!\e[37m\e[0;1m
+    \e[33mSERVER\e[33m: \e[36mSriracha's rampage was ended by Ob1wG!.\e[0;1m
+    \e[38;2;0;255;0mSabotI\e[30m: grabbed Wings flag\e[0;1m
+    \e[38;2;0;255;0msentinel\e[30m: dropped Super Bullet flag\e[0;1m
+    \e[38;2;0;255;0msentinel\e[30m: grabbed Stealth flag\e[0;1m
+    \e[38;2;255;0;0mLuz Mala\e[30m: locked on me\e[0;1m
+    \e[38;2;0;255;0mZehra\e[30m: dropped Wings flag\e[0;1m
+
+expected: |-
+    SabotI: was destroyed by Sriracha's guided missile
+    Ob1wG!: felt the effects of Bond - James Bond's shockwave
+    Ob1wG!: killed by stuka
+    SabotI: killed by stuka
+    SERVER: OUCH! SabotI just got nailed by Genocide!
+    stuka: killed by Ob1wG!
+    Ob1wG!: was destroyed by Sriracha's guided missile
+    SERVER: Sriracha is on a rampage!
+    Ob1wG!: was destroyed by Sriracha's guided missile
+    TANKTOOBLIVION: joining as a tank
+    TANKTOOBLIVION: killed by Bond - James Bond
+    SabotI: killed by Sriracha
+    TANKTOOBLIVION: killed by stuka
+    Ob1wG!: killed by Sriracha
+    Sriracha: killed by Ob1wG!
+    SERVER: Sriracha's rampage was ended by Ob1wG!.
+
+filters:
+    - HIDE_FLAG_ACTION
