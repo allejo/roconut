@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace AppBundle\Service;
 
 /**
- * Class MessageLogTransformer
+ * A class dedicated to transforming logs from AnsiHtmlTransformer and then applying filters to only display only parts
+ * of the log that are wanted.
  */
 class MessageLogTransformer
 {
@@ -21,7 +23,7 @@ class MessageLogTransformer
 
     // Shortcuts for common filter combinations
     const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
-    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION | self::HIDE_PAUSING;
+    const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION | self::HIDE_PAUSING | self::HIDE_CLIENT_MSG;
     const SHOW_PRIVATE_MSG_ONLY = self::SHOW_CHAT_ONLY | self::HIDE_PUBLIC_MSG | self::HIDE_ADMIN_CHAT;
 
     private $rawMessageLog;
@@ -58,10 +60,9 @@ class MessageLogTransformer
      * @see MessageLogTransformer::HIDE_FLAG_ACTION
      * @see MessageLogTransformer::HIDE_PUBLIC_MSG
      * @see MessageLogTransformer::HIDE_PAUSING
-     *
-     * @return $this
+     * @see MessageLogTransformer::HIDE_CLIENT_MSG
      */
-    public function filterLog($flags = null)
+    public function filterLog(int $flags = null): self
     {
         $this->filterFlags = $flags;
 
@@ -71,11 +72,9 @@ class MessageLogTransformer
     /**
      * Filter the private messages by showing only those defined by this method.
      *
-     * @param  string[] $players
-     *
-     * @return $this
+     * @param string[] $players
      */
-    public function filterPrivateMessages($players = array())
+    public function filterPrivateMessages(array $players = array()): self
     {
         $this->onlyPmsFrom = $players;
 
@@ -84,10 +83,8 @@ class MessageLogTransformer
 
     /**
      * Get the filtered message log.
-     *
-     * @return string
      */
-    public function displayMessages()
+    public function displayMessages(): string
     {
         $this->censorPersonalInfo();
 
@@ -204,7 +201,7 @@ class MessageLogTransformer
      *
      * @return string[]
      */
-    public function findPrivateMessages()
+    public function findPrivateMessages(): array
     {
         $conversations = array();
         preg_match_all(self::$privateMessageRegex, $this->rawMessageLog, $conversations);
@@ -218,7 +215,7 @@ class MessageLogTransformer
      * - A player's path to screenshots or savemsgs since a player's name can be in the path
      * - Hide silenced players, which are displayed at client launch
      */
-    private function censorPersonalInfo()
+    private function censorPersonalInfo(): void
     {
         $this->rawMessageLog = preg_replace('#(?<=Saved messages to: )(.+)(?=msg.+)#', '[redacted]/', $this->rawMessageLog);
         $this->rawMessageLog = preg_replace('#(.+screenshots.+)(?=bzf.+)#', '[redacted]/', $this->rawMessageLog);
@@ -228,7 +225,7 @@ class MessageLogTransformer
     /**
      * Handle any special cases where the raw message log needs to be reformatted.
      */
-    private function prepareMessages()
+    private function prepareMessages(): void
     {
         $this->processTimeStampHeading();
         $this->processOddLineBreakClientMessages();
@@ -237,7 +234,7 @@ class MessageLogTransformer
     /**
      * Reformat the messages timestamp heading with better newlines.
      */
-    private function processTimeStampHeading()
+    private function processTimeStampHeading(): void
     {
         // If the message log has a timestamp heading, the spans of that element are consistent with the rest of the log
         // so we need to reformat things to be consistent and make our parsing easier.
@@ -260,7 +257,7 @@ class MessageLogTransformer
      * - "Paused"
      * - "Resumed"
      */
-    private function processOddLineBreakClientMessages()
+    private function processOddLineBreakClientMessages(): void
     {
         $matches = [];
         preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(Paused|Resumed|Got shot by.+)</span>#', $this->rawMessageLog, $matches);
@@ -274,11 +271,15 @@ class MessageLogTransformer
     /**
      * Split the raw message log into separate lines.
      *
-     * @return false|string[]
+     * @return string[]
      */
-    private function getMessagesAsArray()
+    private function getMessagesAsArray(): array
     {
         $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R</span>#', $this->rawMessageLog);
+
+        if ($messages === false) {
+            return [];
+        }
 
         return $messages;
     }
