@@ -102,7 +102,7 @@ class MessageLogTransformer
 
         foreach ($messages as &$line) {
             if ($flags & self::HIDE_SERVER_MSG) {
-                if (preg_match('#^<span.+">(?:\[)?SERVER(?:\-&gt;])?#', $line)) {
+                if (preg_match('#^<span.+yellow">.*SERVER(?:\-&gt;])?#', $line)) {
                     $line = '';
                     continue;
                 }
