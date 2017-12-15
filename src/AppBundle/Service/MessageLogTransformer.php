@@ -215,7 +215,7 @@ class MessageLogTransformer
      * - A player's path to screenshots or savemsgs since a player's name can be in the path
      * - Hide silenced players, which are displayed at client launch
      */
-    private function censorPersonalInfo(): void
+    private function censorPersonalInfo()
     {
         $this->rawMessageLog = preg_replace('#(?<=Saved messages to: )(.+)(?=msg.+)#', '[redacted]/', $this->rawMessageLog);
         $this->rawMessageLog = preg_replace('#(.+screenshots.+)(?=bzf.+)#', '[redacted]/', $this->rawMessageLog);
@@ -225,7 +225,7 @@ class MessageLogTransformer
     /**
      * Handle any special cases where the raw message log needs to be reformatted.
      */
-    private function prepareMessages(): void
+    private function prepareMessages()
     {
         $this->processTimeStampHeading();
         $this->processOddLineBreakClientMessages();
@@ -234,7 +234,7 @@ class MessageLogTransformer
     /**
      * Reformat the messages timestamp heading with better newlines.
      */
-    private function processTimeStampHeading(): void
+    private function processTimeStampHeading()
     {
         // If the message log has a timestamp heading, the spans of that element are consistent with the rest of the log
         // so we need to reformat things to be consistent and make our parsing easier.
@@ -257,7 +257,7 @@ class MessageLogTransformer
      * - "Paused"
      * - "Resumed"
      */
-    private function processOddLineBreakClientMessages(): void
+    private function processOddLineBreakClientMessages()
     {
         $matches = [];
         preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(Paused|Resumed|Got shot by.+)</span>#', $this->rawMessageLog, $matches);
