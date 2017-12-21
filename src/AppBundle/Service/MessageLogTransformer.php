@@ -30,7 +30,7 @@ class MessageLogTransformer
     private $filterFlags;
     private $onlyPmsFrom;
 
-    private static $privateMessageRegex = '#>\[(?:-&gt;)?([^]]*?)(?:-&gt;)?\]#';
+    private static $privateMessageRegex = '#>\[(?:\-&gt;([^]]*?)|([^]]*?)\-&gt;)\]#';
     private static $newLinePattern = "<span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>";
 
     /**
@@ -97,6 +97,7 @@ class MessageLogTransformer
         $this->prepareMessages();
         $messages = $this->getMessagesAsArray();
 
+        // @todo Convert $line to unescaped HTML to make writing regexes easier
         foreach ($messages as &$line) {
             if ($flags & self::HIDE_SERVER_MSG) {
                 if (preg_match('#^<span.+yellow">.*SERVER(?:\-&gt;])?#', $line)) {
@@ -141,7 +142,7 @@ class MessageLogTransformer
                 $line = preg_replace('#(<span.+ansi_color_fg_black">.+)from \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#', '$1', $line);
             }
             if ($flags & self::HIDE_KILL_MSG) {
-                if (preg_match('#<span.+ansi_color_fg_(white|black)">(?:\: )?(was fried by|destroyed by the server|was destroyed by|felt the effects of|didn\'t see|was turned into swiss|got skewered by|killed by|blew myself up).+#', $line)) {
+                if (preg_match("#<span.+ansi_color_fg_(white|black)\">(?:\: )?(was fried by|destroyed by the server|was destroyed by|felt the effects of|didn't see|was turned into swiss|got skewered by|killed by|blew myself up).+#", htmlspecialchars_decode($line, ENT_QUOTES | ENT_HTML5))) {
                     $line = '';
                     continue;
                 }
@@ -159,7 +160,7 @@ class MessageLogTransformer
                 }
             }
             if ($flags & self::HIDE_PUBLIC_MSG) {
-                if (preg_match('#.+"(.+)">[\w]+</span><span style="\\1">: </span>.+#', $line)) {
+                if (preg_match('#.+"(.+)">[\w \-\+]+</span><span style="\\1">: </span>.+#', $line)) {
                     $line = '';
                     continue;
                 }
@@ -206,7 +207,7 @@ class MessageLogTransformer
         $conversations = array();
         preg_match_all(self::$privateMessageRegex, $this->rawMessageLog, $conversations);
 
-        return array_unique($conversations[1]);
+        return array_unique(array_filter($conversations[1]));
     }
 
     /**

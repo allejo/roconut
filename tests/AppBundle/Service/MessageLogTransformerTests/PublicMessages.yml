@@ -1,0 +1,35 @@
+original: |-
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mI've thought of taking the handle "rabbit fire" - a play on rapid fire \e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mi offer free hosting, if your interested\e[0;1m
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mooooohhhh\e[0;1m
+    \e[38;2;255;255;255m02345n-xowu\e[30m: joining as an observer\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mhi 02\e[0;1m
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mhow does that work?\e[0;1m
+    \e[38;2;255;255;255m02345n-xowu\e[38;2;255;255;255m: \e[36mhi TN\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36myou send me your conf and map, and i host it\e[0;1m
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mwhat's your email or whatever\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mthenoahbz@gmail.com\e[0;1m
+    \e[38;2;255;255;255m[Team] 02345n-xowu\e[38;2;255;255;255m: \e[36mI am sorry for getting mad at you a while ago and I will play on your servers.\e[0;1m
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mok, thx\e[0;1m
+    \e[38;2;255;255;255m[Team] 02345n-xowu\e[38;2;255;255;255m: \e[36mitis just that apoc is the worst server in the game and I thoguht you were compltetely against it \e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mnp\e[0;1m
+    \e[38;2;255;255;255m[Team] 02345n-xowu\e[38;2;255;255;255m: \e[36mso I was very suprized that you were who you were\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mglad to help\e[0;1m
+    \e[38;2;255;255;255m[Team] allejo\e[38;2;255;255;255m: \e[36mlol no worries, you're fine :)\e[0;1m
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mcan you recommend a bz editor? I understand there are several\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mpyBZEdit\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mthats what i use\e[0;1m
+    \e[38;2;0;255;0mThe Noah\e[38;2;0;255;0m: \e[36mits not perfect, but it works well\e[0;1m
+    \e[38;2;255;255;255m[Team] 02345n-xowu\e[38;2;255;255;255m: \e[36mbut I still hope you feel very embaressed and guilty for it\e[0;1m
+    \e[38;2;0;255;0mE Z Tank\e[38;2;0;255;0m: \e[36mwritten in Python?\e[0;1m
+
+expected: |-
+    02345n-xowu: joining as an observer
+    [Team] 02345n-xowu: I am sorry for getting mad at you a while ago and I will play on your servers.
+    [Team] 02345n-xowu: itis just that apoc is the worst server in the game and I thoguht you were compltetely against it
+    [Team] 02345n-xowu: so I was very suprized that you were who you were
+    [Team] allejo: lol no worries, you're fine :)
+    [Team] 02345n-xowu: but I still hope you feel very embaressed and guilty for it
+
+filters:
+    - HIDE_PUBLIC_MSG
