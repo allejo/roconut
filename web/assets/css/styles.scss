@@ -26,3 +26,7 @@ $ansi_theme: (
 .message {
   background-color: #343a40;
 }
+
+.message pre {
+    white-space: pre-wrap;
+}
