@@ -2,14 +2,97 @@
 
 {% block body %}
     <div class="container">
-        <h1>Welcome to BZFlag Roconut</h1>
+        <h1>BZFlag Roconut</h1>
 
-        <p><em>...until I can think of a better name, this is the name.</em></p>
+        <p>
+            BZFlag clients support the <code>/savemsgs</code> command, which will export your console messages to a text
+            file. However, by default, the exported messages will contain ANSI escape codes which aren't straight forward
+            to clean up. Members of the community have put together scripts in the past to solve this issue, however they've
+            each hand their own set of issues; this site aims to fix those shortcomings.
+        </p>
 
-        <h2>What is this?</h2>
-        <p>A paste tool for BZFlag users who'd like a place to store/clean <code>/savemsgs</code> logs.</p>
+        <section class="mb-5">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p class="text-center"><strong>Take your exported messages</strong></p>
+                    <div class="console console--scroll">
+                        <div class="console__body">
+                        <pre>
+                            {{ raw }}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-center"><strong>...and create clean, shareable links</strong></p>
 
-        <h2>How do I use it?</h2>
-        <p>Log in with your BZFlag account and start pasting logs.</p>
+                    <div class="console console--scroll">
+                        <div class="console__body">
+                            <pre>{{ cleaned | raw }}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h2>BZFlag Authentication</h2>
+
+            <p>
+                There's no need to create another account or remember a new password. If you have a
+                <a href="https://forums.bzflag.org/">BZFlag</a> account, you'll have an account here already. Just login and
+                start uploading your message logs.
+            </p>
+        </section>
+
+        <section>
+            <h2>Support for Message Filters <small class="color--red">(beta)</small></h2>
+
+            <p>
+                Since all of your console messages are exported, that means it includes flag grabs, kills, deaths, private
+                messages, and a lot of other clutter or sensitive information. The above chat log has been rendered with
+                different filters listened below.
+            </p>
+
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <h3>Hide flag actions</h3>
+
+                    <p>Get rid of all those pesky flag grabs, drops, and captures from your chat log if they're not relevant.</p>
+
+                    <p>Filters used:</p>
+                    <ul>
+                        <li>Hide Client Messages</li>
+                        <li>Hide Server Messages</li>
+                        <li>Hide Flag Actions</li>
+                    </ul>
+
+                    <div class="console">
+                        <div class="console__body">
+                            <pre>{{ filtered['hide_flags'] | raw }}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Show Chat Only</h3>
+                    <p>Are the only relevant things in your chat log the messages? Well, filter out the rest!</p>
+
+                    <p>Filters used:</p>
+                    <ul>
+                        <li>Hide Server Messages</li>
+                        <li>Hide Join & Part Messages</li>
+                        <li>Hide Kill Messages</li>
+                        <li>Hide Flag Actions</li>
+                        <li>Hide Pausing</li>
+                        <li>Hide Client Messages</li>
+                    </ul>
+
+                    <div class="console">
+                        <div class="console__body">
+                            <pre>{{ filtered['chat_only'] | raw }}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 {% endblock %}

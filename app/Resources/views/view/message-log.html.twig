@@ -56,8 +56,12 @@
             </div>
         {% endif %}
 
-        <section class="message p-3">
-            <pre class="mb-0">{{ message | raw }}</pre>
+        <section class="p-3">
+            <div class="console console--wrap">
+                <div class="console__body">
+                    <pre class="mb-0">{{ message | raw }}</pre>
+                </div>
+            </div>
         </section>
     </div>
 {% endblock %}

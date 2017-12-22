@@ -23,10 +23,30 @@ $ansi_theme: (
   }
 }
 
-.message {
-  background-color: #343a40;
+.console {
+    background-color: #343a40;
+    padding: 1rem;
 }
 
-.message pre {
-    white-space: pre-wrap;
+.console--wrap {
+    pre {
+        white-space: pre-wrap;
+    }
+}
+
+.console--scroll {
+    pre {
+        white-space: pre;
+    }
+}
+
+.console__body {
+    pre {
+        color: #ffffff;
+        margin-bottom: 0;
+    }
+}
+
+.color--red {
+    color: #dc322f;
 }

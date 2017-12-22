@@ -1,71 +1,66 @@
 .ansi_color_fg_black {
-    color: #909090;
-}
+  color: #909090; }
 
 .ansi_color_fg_red {
-    color: #dc322f;
-}
+  color: #dc322f; }
 
 .ansi_color_fg_green {
-    color: #859900;
-}
+  color: #859900; }
 
 .ansi_color_fg_yellow {
-    color: #ffd400;
-}
+  color: #ffd400; }
 
 .ansi_color_fg_blue {
-    color: #268bd2;
-}
+  color: #268bd2; }
 
 .ansi_color_fg_magenta {
-    color: #d33682;
-}
+  color: #d33682; }
 
 .ansi_color_fg_cyan {
-    color: #3cd6ca;
-}
+  color: #3cd6ca; }
 
 .ansi_color_fg_white {
-    color: #f3efe5;
-}
+  color: #f3efe5; }
 
 .ansi_color_fg_brblack {
-    color: #002b36;
-}
+  color: #002b36; }
 
 .ansi_color_fg_brred {
-    color: #cb4b16;
-}
+  color: #cb4b16; }
 
 .ansi_color_fg_brgreen {
-    color: #586e75;
-}
+  color: #586e75; }
 
 .ansi_color_fg_bryellow {
-    color: #657b83;
-}
+  color: #657b83; }
 
 .ansi_color_fg_brblue {
-    color: #839496;
-}
+  color: #839496; }
 
 .ansi_color_fg_brmagenta {
-    color: #6c71c4;
-}
+  color: #6c71c4; }
 
 .ansi_color_fg_brcyan {
-    color: #93a1a1;
-}
+  color: #93a1a1; }
 
 .ansi_color_fg_brwhite {
-    color: #fdf6e3;
-}
+  color: #fdf6e3; }
 
-.message {
-    background-color: #343a40;
-}
+.console {
+  background-color: #343a40;
+  padding: 1rem; }
 
-.message pre {
-    white-space: pre-wrap;
-}
+.console--wrap pre {
+  white-space: pre-wrap; }
+
+.console--scroll pre {
+  white-space: pre; }
+
+.console__body pre {
+  color: #ffffff;
+  margin-bottom: 0; }
+
+.color--red {
+  color: #dc322f; }
+
+/*# sourceMappingURL=styles.css.map */
