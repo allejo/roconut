@@ -1,3 +1,6 @@
+filter:
+    paths: [ "src/AppBundle/*"]
+
 checks:
     php:
         code_rating: true
