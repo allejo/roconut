@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
@@ -19,8 +24,7 @@ class UserController extends Controller
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user instanceof User)
-        {
+        if (!$user instanceof User) {
             return $this->redirectToRoute('login');
         }
 

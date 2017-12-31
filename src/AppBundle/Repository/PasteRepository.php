@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\PasteStatus;
@@ -7,7 +12,7 @@ use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * PasteRepository
+ * PasteRepository.
  */
 class PasteRepository extends EntityRepository
 {

@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 declare(strict_types=1);
 
 namespace Tests\AppBundle\Service;

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,7 +19,6 @@ class PolicyController extends Controller
     public function privacyAction(Request $request)
     {
         return $this->render(':policy:privacy.html.twig', [
-
         ]);
     }
 
@@ -24,7 +28,6 @@ class PolicyController extends Controller
     public function tosAction(Request $request)
     {
         return $this->render(':policy:tos.html.twig', [
-
         ]);
     }
 }

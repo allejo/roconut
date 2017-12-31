@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Response\DownloadResponse;
@@ -58,15 +63,15 @@ class ViewController extends Controller
             $plainTextMessage = preg_replace('#\R#', "\r\n", $plainTextMessage);
 
             if ($format === 'text') {
-                return (new PlainTextResponse($plainTextMessage));
+                return new PlainTextResponse($plainTextMessage);
             }
 
             if ($downloadRequest === 'text') {
-                return (new DownloadResponse(
+                return new DownloadResponse(
                     $plainTextMessage,
                     sprintf('%s.txt', $paste->getTitle()),
                     DownloadResponse::TEXT_TYPE
-                ));
+                );
             }
         }
 
@@ -74,7 +79,7 @@ class ViewController extends Controller
             'paste' => $paste,
             'key' => $key,
             'message' => $message,
-            'encrypted' => (bool)$request->get('not_saved'),
+            'encrypted' => (bool) $request->get('not_saved'),
         ]);
     }
 }

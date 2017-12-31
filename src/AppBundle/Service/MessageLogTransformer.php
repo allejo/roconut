@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 declare(strict_types=1);
 
 namespace AppBundle\Service;
@@ -9,17 +15,17 @@ namespace AppBundle\Service;
  */
 class MessageLogTransformer
 {
-    const HIDE_SERVER_MSG  = 1;
+    const HIDE_SERVER_MSG = 1;
     const HIDE_PRIVATE_MSG = 2;
-    const HIDE_TEAM_CHAT   = 4;
-    const HIDE_ADMIN_CHAT  = 8;
-    const HIDE_JOIN_PART   = 16;
-    const HIDE_IP_ADDRESS  = 32;
-    const HIDE_KILL_MSG    = 64;
+    const HIDE_TEAM_CHAT = 4;
+    const HIDE_ADMIN_CHAT = 8;
+    const HIDE_JOIN_PART = 16;
+    const HIDE_IP_ADDRESS = 32;
+    const HIDE_KILL_MSG = 64;
     const HIDE_FLAG_ACTION = 128;
-    const HIDE_PUBLIC_MSG  = 256;
-    const HIDE_PAUSING     = 512;
-    const HIDE_CLIENT_MSG  = 1024;
+    const HIDE_PUBLIC_MSG = 256;
+    const HIDE_PAUSING = 512;
+    const HIDE_CLIENT_MSG = 1024;
 
     // Shortcuts for common filter combinations
     const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
@@ -48,7 +54,7 @@ class MessageLogTransformer
      *
      * Define the set of flags by combining available flags with inclusive ors, `|`.
      *
-     * @param int|null $flags Bitwise flags defining what message types to hide.
+     * @param int|null $flags bitwise flags defining what message types to hide
      *
      * @see MessageLogTransformer::HIDE_SERVER_MSG
      * @see MessageLogTransformer::HIDE_PRIVATE_MSG
@@ -74,7 +80,7 @@ class MessageLogTransformer
      *
      * @param string[] $players
      */
-    public function filterPrivateMessages(array $players = array()): self
+    public function filterPrivateMessages(array $players = []): self
     {
         $this->onlyPmsFrom = $players;
 
@@ -204,14 +210,14 @@ class MessageLogTransformer
      */
     public function findPrivateMessages(): array
     {
-        $conversations = array();
+        $conversations = [];
         preg_match_all(self::$privateMessageRegex, $this->rawMessageLog, $conversations);
 
         return array_unique(array_filter($conversations[1]));
     }
 
     /**
-     * Remove any information that may be considered personal:
+     * Remove any information that may be considered personal:.
      *
      * - A player's path to screenshots or savemsgs since a player's name can be in the path
      * - Hide silenced players, which are displayed at client launch
@@ -265,7 +271,7 @@ class MessageLogTransformer
 
         foreach ($matches[0] as $match) {
             $t = str_replace(["\r", "\n"], '', $match);
-            $this->rawMessageLog = str_replace($match, sprintf("%s%s%s", self::$newLinePattern, $t, self::$newLinePattern), $this->rawMessageLog);
+            $this->rawMessageLog = str_replace($match, sprintf('%s%s%s', self::$newLinePattern, $t, self::$newLinePattern), $this->rawMessageLog);
         }
     }
 

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Paste;
@@ -20,7 +25,6 @@ class NewUploadController extends Controller
     public function indexAction(Request $request)
     {
         return $this->render(':editor:index.html.twig', [
-
         ]);
     }
 
@@ -60,7 +64,7 @@ class NewUploadController extends Controller
         }
 
         return $this->render(':editor:message-log_new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Paste;
@@ -56,7 +61,7 @@ class PasteFormType extends AbstractType
             ])
             ->add('encrypted', CheckboxType::class, [
                 'required' => false,
-                'label' => "Don't save to account"
+                'label' => "Don't save to account",
             ])
             ->add('submit', SubmitType::class, [])
         ;
@@ -70,7 +75,7 @@ class PasteFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Paste::class
+            'data_class' => Paste::class,
         ]);
     }
 

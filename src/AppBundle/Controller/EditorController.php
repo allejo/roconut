@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Paste;
@@ -24,7 +29,8 @@ class EditorController extends Controller
     /**
      * @Route("/message-log/{id}/{key}", name="edit_message_log")
      *
-     * @param int $id The ID of the paste we're editing
+     * @param int   $id  The ID of the paste we're editing
+     * @param mixed $key
      *
      * @return Response
      */

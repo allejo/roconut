@@ -16,3 +16,4 @@
 /vendor/
 /web/bundles/
 *.css.map
+.php_cs

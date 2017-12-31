@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2017-2018 Vladimir Jimenez
+ * @license   https://github.com/allejo/roconut/blob/master/LICENSE.md MIT
+ */
+
 namespace AppBundle\Form\DataTransformer;
 
 use AppBundle\Service\MessageLogTransformer;
@@ -26,7 +31,7 @@ class MessageFilterBitwiseTransformer implements DataTransformerInterface
      *
      * @param int $value The calculated OR's for MessageLogTransformer bitwise filters
      *
-     * @return array An array of integer values for each separate bitwise flag.
+     * @return array an array of integer values for each separate bitwise flag
      */
     public function transform($value)
     {
@@ -59,10 +64,10 @@ class MessageFilterBitwiseTransformer implements DataTransformerInterface
      *
      * @param array $value An array of MessageLogTransformer bitwise filters
      *
-     * @return int An OR'd value of all of the bitwise flags to be stored in the database.
+     * @return int an OR'd value of all of the bitwise flags to be stored in the database
      */
     public function reverseTransform($value)
     {
-        return (int)array_reduce($value, function ($a, $b) { return $a | $b; });
+        return (int) array_reduce($value, function ($a, $b) { return $a | $b; });
     }
 }

@@ -22,11 +22,11 @@ class AnsiHtmlTransformer
     public function __construct($charset = 'UTF-8')
     {
         $this->charset = $charset;
-        $this->colorNames = array(
+        $this->colorNames = [
             'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
             '', '',
             'brblack', 'brred', 'brgreen', 'bryellow', 'brblue', 'brmagenta', 'brcyan', 'brwhite',
-        );
+        ];
     }
 
     public function convert($text)
@@ -47,7 +47,7 @@ class AnsiHtmlTransformer
 
         // a backspace remove the previous character but only from a text token
         foreach ($tokens as $i => $token) {
-            if ('backspace' == $token[0]) {
+            if ($token[0] == 'backspace') {
                 $j = $i;
                 while (--$j >= 0) {
                     if ('text' == $tokens[$j][0] && strlen($tokens[$j][1]) > 0) {
@@ -61,9 +61,9 @@ class AnsiHtmlTransformer
 
         $html = '';
         foreach ($tokens as $token) {
-            if ('text' == $token[0]) {
+            if ($token[0] == 'text') {
                 $html .= $token[1];
-            } elseif ('color' == $token[0]) {
+            } elseif ($token[0] == 'color') {
                 $html .= $this->convertAnsiToColor($token[1]);
             }
         }
@@ -81,7 +81,7 @@ class AnsiHtmlTransformer
         $bg = 0;
         $fg = 7;
         $as = '';
-        if ('0' != $ansi && '' != $ansi) {
+        if ($ansi != '0' && $ansi != '') {
             $options = explode(';', $ansi);
 
             foreach ($options as $option) {
@@ -89,9 +89,9 @@ class AnsiHtmlTransformer
                     $fg = $option - 30;
                 } elseif ($option >= 40 && $option < 48) {
                     $bg = $option - 40;
-                } elseif (39 == $option) {
+                } elseif ($option == 39) {
                     $fg = 7;
-                } elseif (49 == $option) {
+                } elseif ($option == 49) {
                     $bg = 0;
                 }
             }
@@ -119,26 +119,26 @@ class AnsiHtmlTransformer
 
         if (is_array($fg)) {
             return sprintf('</span><span style="color: %s%s">', sprintf('#%02x%02x%02x', $fg[0], $fg[1], $fg[2]), $as);
-        } else {
-            return sprintf('</span><span class="ansi_color_bg_%s ansi_color_fg_%s">', $this->colorNames[$bg], $this->colorNames[$fg]);
         }
+
+        return sprintf('</span><span class="ansi_color_bg_%s ansi_color_fg_%s">', $this->colorNames[$bg], $this->colorNames[$fg]);
     }
 
     protected function tokenize($text)
     {
-        $tokens = array();
+        $tokens = [];
         preg_match_all("/(?:\e\[(.*?)m|(\x08))/", $text, $matches, PREG_OFFSET_CAPTURE);
 
         $offset = 0;
         foreach ($matches[0] as $i => $match) {
             if ($match[1] - $offset > 0) {
-                $tokens[] = array('text', substr($text, $offset, $match[1] - $offset));
+                $tokens[] = ['text', substr($text, $offset, $match[1] - $offset)];
             }
-            $tokens[] = array("\x08" == $match[0] ? 'backspace' : 'color', $matches[1][$i][0]);
+            $tokens[] = [$match[0] == "\x08" ? 'backspace' : 'color', $matches[1][$i][0]];
             $offset = $match[1] + strlen($match[0]);
         }
         if ($offset < strlen($text)) {
-            $tokens[] = array('text', substr($text, $offset));
+            $tokens[] = ['text', substr($text, $offset)];
         }
 
         return $tokens;
