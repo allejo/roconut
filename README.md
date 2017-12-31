@@ -1,5 +1,9 @@
 # Roconut
 
+[![Build Status](https://travis-ci.org/allejo/roconut.svg?branch=master)](https://travis-ci.org/allejo/roconut)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/roconut/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/roconut/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/allejo/roconut/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/allejo/roconut/?branch=master)
+
 A [Symfony](https://symfony.com/) based pastebin website for BZFlag `/savemsgs` log files. By default, the exported message logs contain ANSI escape codes, which aren't straightforward to remove and if they are removed, then you're left with a colorless message log. Then you are left to upload the message log to another pastebin website. This project aims to fix all of those issues:
 
 - Upload all your message logs
