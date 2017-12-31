@@ -1,7 +1,14 @@
 {
     "name": "allejo/roconut",
-    "license": "proprietary",
+    "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "Vladimir Jimenez",
+            "homepage": "https://allejo.io",
+            "role": "Project Maintainer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle"
@@ -20,7 +27,7 @@
         ]
     },
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.0.8",
         "allejo/bzbb-authentication-bundle": "^1.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-migrations-bundle": "^1.0",

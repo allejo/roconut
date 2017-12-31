@@ -1,0 +1,32 @@
+language: php
+php:
+  - 7
+  - 7.1
+  - 7.2
+  - hhvm
+
+dist: trusty
+sudo: false
+group: beta
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+before_script:
+  - composer self-update -q
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
+  - composer install --no-interaction --prefer-dist
+
+script:
+ - vendor/bin/phpunit --coverage-clover coverage.clover
+
+after_script:
+ - wget https://scrutinizer-ci.com/ocular.phar
+ - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+
+notifications:
+  email: false
+  webhooks:
+    - http://helit.org:8093/+sujevo-dev/showSuccessfulBuildMessages=always
