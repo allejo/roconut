@@ -1,3 +1,8 @@
+checks:
+    php:
+        code_rating: true
+        duplication: true
+
 tools:
     sensiolabs_security_checker: true
     external_code_coverage: true
