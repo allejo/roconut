@@ -4,10 +4,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Paste;
 use AppBundle\Form\PasteFormType;
+use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\Crypto;
+use AppBundle\Service\MessageLogTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +48,12 @@ class EditorController extends Controller
             throw $this->createAccessDeniedException('You are using an invalid decryption key');
         }
 
+        $ansi = new AnsiHtmlTransformer();
+        $msgTransfer = new MessageLogTransformer($ansi->convert($message));
+        $conversations = $msgTransfer->findPrivateMessages();
+
+        $convoChoices = array_combine(array_values($conversations), array_values($conversations));
+
         $form = $this->createForm(PasteFormType::class, $paste);
 
         $form
@@ -57,6 +66,13 @@ class EditorController extends Controller
             ->add('message', TextareaType::class, [
                 'data' => Crypto::decrypt_v1($paste->getMessage(), $key),
                 'disabled' => true,
+            ])
+            ->add('private_message_filters', ChoiceType::class, [
+                'choices' => $convoChoices,
+                'disabled' => false,
+                'multiple' => true,
+                'required' => false,
+                'label' => 'Private Messages',
             ])
         ;
 

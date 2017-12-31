@@ -69,6 +69,11 @@ class Paste
     private $filter;
 
     /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $private_message_filters;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="snippets")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
@@ -79,6 +84,7 @@ class Paste
         $this->created = new \DateTime();
         $this->status = PasteStatus::ACTIVE;
         $this->filter = 0;
+        $this->private_message_filters = [];
     }
 
     public function getId()
@@ -171,6 +177,18 @@ class Paste
     public function setFilter(int $filter): self
     {
         $this->filter = $filter;
+
+        return $this;
+    }
+
+    public function getPrivateMessageFilters(): array
+    {
+        return $this->private_message_filters;
+    }
+
+    public function setPrivateMessageFilters(array $privateMessageFilters): self
+    {
+        $this->private_message_filters = $privateMessageFilters;
 
         return $this;
     }

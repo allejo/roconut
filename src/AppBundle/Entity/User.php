@@ -64,4 +64,28 @@ class User extends BaseUser
     {
         $this->snippets = $snippets;
     }
+
+    /**
+     * Add snippet
+     *
+     * @param \AppBundle\Entity\Paste $snippet
+     *
+     * @return User
+     */
+    public function addSnippet(\AppBundle\Entity\Paste $snippet)
+    {
+        $this->snippets[] = $snippet;
+
+        return $this;
+    }
+
+    /**
+     * Remove snippet
+     *
+     * @param \AppBundle\Entity\Paste $snippet
+     */
+    public function removeSnippet(\AppBundle\Entity\Paste $snippet)
+    {
+        $this->snippets->removeElement($snippet);
+    }
 }

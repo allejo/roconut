@@ -43,10 +43,13 @@ class ViewController extends Controller
         $message = $ansiTransformer->convert($message);
 
         $msgTransformer = new MessageLogTransformer($message);
-        $message = $msgTransformer
-            ->filterLog($paste->getFilter())
-            ->displayMessages()
-        ;
+        $msgTransformer->filterLog($paste->getFilter());
+
+        if (!empty($pmFilters = $paste->getPrivateMessageFilters())) {
+            $msgTransformer->filterPrivateMessages($pmFilters);
+        }
+
+        $message = $msgTransformer->displayMessages();
 
         $downloadRequest = $request->get('download');
 

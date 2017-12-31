@@ -1,7 +1,7 @@
 {{ form_start(form) }}
     <div class="form-group">
         {{ form_row(form.title, { attr: {
-            class: 'form-control',
+            'class': 'form-control',
             'aria-describedby': 'titleHelp'
         }}) }}
         <small id="titleHelp" class="form-text text-muted">A name that'll help you remember the contents of this log.</small>
@@ -9,7 +9,7 @@
 
     <div class="form-group">
         {{ form_row(form.message, { attr: {
-            class: 'form-control',
+            'class': 'form-control',
             'aria-describedby': 'messageHelp'
         }}) }}
         <small id="messageHelp" class="form-text text-muted">Copy paste your file contents</small>
@@ -28,7 +28,20 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.filter) }}
+        <div>
+            {{ form_label(form.filter, null, { label_attr: {
+                'class': 'mb-0',
+                'aria-describedby': 'chatHelp'
+            }}) }}
+            <small class="color--red">(beta)</small>
+        </div>
+
+        <p>
+            <small id="chatHelp" class="text-muted">
+                Use these filters to hide types of messages that appear in your console to clean up your message log.
+            </small>
+        </p>
+
         <div class="row">
             {% for child in form.filter.children %}
                 <div class="col-sm-6 col-md-4">
@@ -44,6 +57,30 @@
             {% endfor %}
         </div>
     </div>
+
+    {% if form.private_message_filters is defined %}
+        <div class="form-group">
+            <div>
+                {{ form_label(form.private_message_filters, null, { label_attr: {
+                    'class': 'mb-0',
+                    'aria-describedby': 'pmFilterHelp'
+                }}) }}
+                <small class="color--red">(beta)</small>
+            </div>
+            <p>
+                <small id="pmFilterHelp" class="text-muted">
+                    Filter your message log to only display PM conversations with the following players.
+                    Use <kbd><kbd>CTRL</kbd>/<kbd>&#8984;</kbd> + Click</kbd> to deselect players.
+                </small>
+            </p>
+
+            {{ form_errors(form.private_message_filters) }}
+
+            {{ form_widget(form.private_message_filters, { attr: {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    {% endif %}
 
     {{ form_row(form.submit, { attr: {
         class: 'btn btn-primary'
