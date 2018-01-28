@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace AppBundle\Service;
 
 use AppBundle\MessageLogFilter\MessageLogFilterInterface;
+use AppBundle\MessageLogFilter\PrivateMessageFilter;
 
 /**
  * A class dedicated to transforming logs from AnsiHtmlTransformer and then applying filters to only display only parts
@@ -138,93 +139,15 @@ class MessageLogTransformer
         $this->prepareMessages();
         $messages = $this->getMessagesAsArray();
 
-        // @todo Convert $line to unescaped HTML to make writing regexes easier
         foreach ($messages as &$line) {
-            if ($flags & self::HIDE_SERVER_MSG) {
-                if (preg_match('#^<span.+yellow">.*SERVER(?:\-&gt;])?#', $line)) {
-                    $line = '';
-                    continue;
+            foreach ($this->registeredFilters as $filter) {
+                if (empty($line) || ($filter->shouldRun($flags) && $filter->filterLine($line))) {
+                    break;
                 }
             }
-            if ($flags & self::HIDE_TEAM_CHAT) {
-                if (preg_match('#^<span.+">\[Team\]#', $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_ADMIN_CHAT) {
-                if (preg_match('#^<span.+">\[Admin\]#', $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_JOIN_PART) {
-                if (preg_match('#<span.+ansi_color_fg_black">: joining as a.+#', $line) ||
-                    preg_match('#<span.+ansi_color_fg_black">: signing off.+#', $line)
-                ) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_IP_ADDRESS) {
-                // "IPINFO:" messages that are displayed on join for admins
-                if (preg_match('#<span.+ansi_color_fg_cyan">IPINFO:.+#', $line)) {
-                    $line = '';
-                    continue;
-                }
 
-                // Messages sent to players via /playerlist
-                if (preg_match('#yellow">.*\[SERVER-&gt;\].*\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}.*#', $line)) {
-                    $line = '';
-                    continue;
-                }
-
-                // Remove IPs from joins and parts
-                $line = preg_replace('#(<span.+ansi_color_fg_black">.+)from \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#', '$1', $line);
-            }
-            if ($flags & self::HIDE_KILL_MSG) {
-                if (preg_match("#<span.+ansi_color_fg_(white|black)\">(?:\: )?(was fried by|destroyed by the server|was destroyed by|felt the effects of|didn't see|was turned into swiss|got skewered by|killed by|blew myself up).+#", htmlspecialchars_decode($line, ENT_QUOTES | ENT_HTML5))) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_FLAG_ACTION) {
-                if (preg_match('#<span.+ansi_color_fg_black">.+(captured|grabbed|dropped|locked on me)(?:.+flag)?#', $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_PRIVATE_MSG) {
-                if (preg_match(self::$privateMessageRegex, $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_PUBLIC_MSG) {
-                if (preg_match('#.+"(.+)">[\w \-\+]+</span><span style="\\1">: </span>.+#', $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_PAUSING) {
-                if (preg_match('#black">:.+([Pp]aused|Resumed)#', $line)) {
-                    $line = '';
-                    continue;
-                }
-            }
-            if ($flags & self::HIDE_CLIENT_MSG) {
-                if (substr_count($line, '<span class') === 1 && substr_count($line, '</span>') === 1) {
-                    $line = '';
-                    continue;
-                }
-
-                if (substr_count($line, '<span class="ansi_color_bg_black ansi_color_fg_black">: /set ') > 0) {
-                    $line = '';
-                    continue;
-                }
-            }
             if (!empty($this->onlyPmsFrom) || ($flags & self::HIDE_PRIVATE_MSG)) {
-                if (preg_match(self::$privateMessageRegex, $line)) {
+                if (preg_match(PrivateMessageFilter::REGEX, $line)) {
                     foreach ($this->onlyPmsFrom as $recipient) {
                         if (!preg_match('#\[.*(' . $recipient . ').*\]#', $line)) {
                             $line = '';
@@ -246,7 +169,7 @@ class MessageLogTransformer
     public function findPrivateMessages(): array
     {
         $conversations = [];
-        preg_match_all(self::$privateMessageRegex, $this->rawMessageLog, $conversations);
+        preg_match_all(PrivateMessageFilter::REGEX, $this->rawMessageLog, $conversations);
 
         return array_unique(array_filter($conversations[1]));
     }

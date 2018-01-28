@@ -9,7 +9,17 @@ declare(strict_types=1);
 
 namespace Tests\AppBundle\Service;
 
+use AppBundle\MessageLogFilter\AdminChatFilter;
+use AppBundle\MessageLogFilter\ClientMessageFilter;
+use AppBundle\MessageLogFilter\FlagActionFilter;
+use AppBundle\MessageLogFilter\IpAddressFilter;
+use AppBundle\MessageLogFilter\JoinPartFilter;
+use AppBundle\MessageLogFilter\KillMessageFilter;
+use AppBundle\MessageLogFilter\PauseFilter;
+use AppBundle\MessageLogFilter\PrivateMessageFilter;
+use AppBundle\MessageLogFilter\PublicMessageFilter;
 use AppBundle\MessageLogFilter\ServerMessageFilter;
+use AppBundle\MessageLogFilter\TeamChatFilter;
 use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\MessageLogTransformer;
 use PHPUnit\Framework\TestCase;
@@ -42,7 +52,19 @@ class MessageLogTransformerTest extends TestCase
 
         $msgTransformer = new MessageLogTransformer();
         $msgTransformer
-            ->registerMessageFilter(new ServerMessageFilter())
+            ->registerMessageFilters([
+                new AdminChatFilter(),
+                new ClientMessageFilter(),
+                new FlagActionFilter(),
+                new IpAddressFilter(),
+                new JoinPartFilter(),
+                new KillMessageFilter(),
+                new PauseFilter(),
+                new PrivateMessageFilter(),
+                new PublicMessageFilter(),
+                new ServerMessageFilter(),
+                new TeamChatFilter(),
+            ])
         ;
 
         /** @var SplFileInfo $file */
