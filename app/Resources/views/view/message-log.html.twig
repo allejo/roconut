@@ -6,9 +6,9 @@
     <div class="container">
         <div class="row mb-3">
             <div class="col-md-6 mb-3 mb-md-0">
-                <h1>{{ paste.title }}</h1>
-                <p>
-                    by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}
+                <h1 class="h2 m-0">{{ paste.title }}</h1>
+                <p class="m-0">
+                    <small>by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}</small>
                 </p>
             </div>
             <div class="col-md-6">
@@ -56,7 +56,7 @@
             </div>
         {% endif %}
 
-        <section class="p-3">
+        <section>
             <div class="console console--wrap">
                 <div class="console__body">
                     <pre class="mb-0">{{ message | raw }}</pre>

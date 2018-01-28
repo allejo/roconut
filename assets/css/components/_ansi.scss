@@ -1,0 +1,24 @@
+$ansi_theme: (
+    'black': #909090,
+    'red': #dc322f,
+    'green': #859900,
+    'yellow': #ffd400,
+    'blue': #268bd2,
+    'magenta': #d33682,
+    'cyan': #3cd6ca,
+    'white': rgba(#f3efe5, 0.8),
+    'brblack': #002b36,
+    'brred': #cb4b16,
+    'brgreen': #586e75,
+    'bryellow': #657b83,
+    'brblue': #839496,
+    'brmagenta': #6c71c4,
+    'brcyan': #93a1a1,
+    'brwhite': #fdf6e3,
+);
+
+@each $name, $color in $ansi_theme {
+    .ansi_color_fg_#{$name} {
+        color: $color;
+    }
+}

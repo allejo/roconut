@@ -1,0 +1,23 @@
+.console {
+    background-color: $color-dark-grey;
+    padding: 1rem;
+}
+
+.console--wrap {
+    pre {
+        white-space: pre-wrap;
+    }
+}
+
+.console--scroll {
+    pre {
+        white-space: pre;
+    }
+}
+
+.console__body {
+    pre {
+        color: #ffffff;
+        margin-bottom: 0;
+    }
+}

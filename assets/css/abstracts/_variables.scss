@@ -1,0 +1,18 @@
+$color-dark-grey: #232323;
+$color-light-grey: #2b2b2b;
+
+// Bootstrap Overrides
+$dark: $color-dark-grey;
+
+$body-bg: $color-light-grey;
+$body-color: rgba(#fff, 0.9);
+
+$text-muted: #8c8c8c;
+
+$primary: #915d97;
+
+$link-color: #8ec6ff;
+
+$input-color: rgba(#fff, 0.8);
+$input-bg: $color-dark-grey;
+$input-disabled-bg: lighten($color-dark-grey, 10%);
