@@ -51,13 +51,29 @@ class MessageLogTransformer
     }
 
     /**
-     * Register a MessageFilter with this class; this filter will be available to all instances of this transformer.
+     * Register a MessageFilter with this instance.
      *
      * @param MessageLogFilterInterface $filter
      */
-    public function registerMessageFilter(MessageLogFilterInterface $filter)
+    public function registerMessageFilter(MessageLogFilterInterface $filter): self
     {
         $this->registeredFilters[] = $filter;
+
+        return $this;
+    }
+
+    /**
+     * Register an array of MessageFilters with this instance.
+     *
+     * @param iterable $messageFilters
+     *
+     * @todo When PHP 7.1 because the minimum requirement, typehint against `iterable`
+     */
+    public function registerMessageFilters(/*iterable*/ $messageFilters): self
+    {
+        foreach ($messageFilters as $filter) {
+            $this->registerMessageFilter($filter);
+        }
 
         return $this;
     }

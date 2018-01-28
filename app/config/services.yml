@@ -29,6 +29,11 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\Service\MessageLogTransformer:
+        calls:
+            - method: registerMessageFilters
+              arguments: [!tagged message_transformer.filter]
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
