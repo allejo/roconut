@@ -1,0 +1,36 @@
+{
+    "name": "roconut",
+    "version": "1.0.0",
+    "description": "A pastebin-like website for BZFlag log messages",
+    "main": "assets/js/app.js",
+    "directories": {
+        "test": "tests"
+    },
+    "dependencies": {
+        "node-sass": "^4.7.2"
+    },
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.17.1",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.3.1",
+        "popper.js": "^1.12.9",
+        "sass-loader": "^6.0.6",
+        "webpack-notifier": "^1.5.1"
+    },
+    "scripts": {
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "prod": "encore production",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/allejo/roconut.git"
+    },
+    "author": "Vladimir \"allejo\" Jimenez",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/allejo/roconut/issues"
+    },
+    "homepage": "https://github.com/allejo/roconut"
+}
