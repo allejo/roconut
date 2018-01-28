@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Tests\AppBundle\Service;
 
+use AppBundle\MessageLogFilter\ServerMessageFilter;
 use AppBundle\Service\AnsiHtmlTransformer;
 use AppBundle\Service\MessageLogTransformer;
 use PHPUnit\Framework\TestCase;
@@ -39,6 +40,11 @@ class MessageLogTransformerTest extends TestCase
         $logTransformer = new \ReflectionClass(MessageLogTransformer::class);
         $constants = $logTransformer->getConstants();
 
+        $msgTransformer = new MessageLogTransformer();
+        $msgTransformer
+            ->registerMessageFilter(new ServerMessageFilter())
+        ;
+
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
             $definition = Yaml::parse($file->getContents(), Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
@@ -48,7 +54,7 @@ class MessageLogTransformerTest extends TestCase
                 return $a | $constants[$b];
             });
 
-            $msgTransformer = new MessageLogTransformer(self::ansiToHtml($cleanedUp));
+            $msgTransformer->setRawMessage(self::ansiToHtml($cleanedUp));
             $filteredMessage = $msgTransformer->filterLog($chatFilter)->displayMessages();
 
             $actualMessage = htmlspecialchars_decode(strip_tags($filteredMessage), ENT_QUOTES | ENT_HTML5);
@@ -57,6 +63,7 @@ class MessageLogTransformerTest extends TestCase
             $testDefinitions[] = [
                 $definition['expected'],
                 $actualMessage,
+                $file->getFilename(),
             ];
         }
 
@@ -66,9 +73,9 @@ class MessageLogTransformerTest extends TestCase
     /**
      * @dataProvider messageLogTransformerDataProvider
      */
-    public function testExpectedLogMessagesFromDefinitionFiles(string $expected, string $actual)
+    public function testExpectedLogMessagesFromDefinitionFiles(string $expected, string $actual, string $filename)
     {
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual, "The assertion for the '${filename}' test case failed.");
     }
 
     ///
@@ -88,7 +95,8 @@ class MessageLogTransformerTest extends TestCase
 \e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
 FEED;
         $converted = self::ansiToHtml($chat);
-        $transformer = new MessageLogTransformer($converted);
+        $transformer = new MessageLogTransformer();
+        $transformer->setRawMessage($converted);
         $conversations = $transformer->findPrivateMessages();
 
         $this->assertCount(2, $conversations);
@@ -109,7 +117,8 @@ FEED;
 \e[38;2;255;255;255m\e[5m[02345n-xOwU->]\e[0;1m \e[36mmessage from 02345n\e[0;1m
 FEED;
         $converted = self::ansiToHtml($chat);
-        $transformer = new MessageLogTransformer($converted);
+        $transformer = new MessageLogTransformer();
+        $transformer->setRawMessage($converted);
         $conversations = $transformer
             ->filterPrivateMessages(['Bertman'])
             ->displayMessages()

@@ -60,7 +60,8 @@ MESSAGE;
         $ansiLogTransformer = new AnsiHtmlTransformer();
         $cleanedMessage = $ansiLogTransformer->convert($sampleMessageLog);
 
-        $logTransformer = new MessageLogTransformer($cleanedMessage);
+        $logTransformer = new MessageLogTransformer();
+        $logTransformer->setRawMessage($cleanedMessage);
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [

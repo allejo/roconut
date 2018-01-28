@@ -55,7 +55,8 @@ class EditorController extends Controller
         }
 
         $ansi = new AnsiHtmlTransformer();
-        $msgTransfer = new MessageLogTransformer($ansi->convert($message));
+        $msgTransfer = new MessageLogTransformer();
+        $msgTransfer->setRawMessage($ansi->convert($message));
         $conversations = $msgTransfer->findPrivateMessages();
 
         $convoChoices = array_combine(array_values($conversations), array_values($conversations));

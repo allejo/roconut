@@ -29,7 +29,7 @@ class ViewController extends Controller
      * @param string $key    The decryption key necessary to read this Paste
      * @param string $format The format to which display the paste in
      */
-    public function viewAction(Request $request, $id, $key, $format): Response
+    public function viewAction(Request $request, MessageLogTransformer $msgTransformer, $id, $key, $format): Response
     {
         $em = $this->getDoctrine()->getManager();
         $paste = $em->getRepository('AppBundle:Paste')->find($id);
@@ -47,7 +47,7 @@ class ViewController extends Controller
         $ansiTransformer = new AnsiHtmlTransformer();
         $message = $ansiTransformer->convert($message);
 
-        $msgTransformer = new MessageLogTransformer($message);
+        $msgTransformer->setRawMessage($message);
         $msgTransformer->filterLog($paste->getFilter());
 
         if (!empty($pmFilters = $paste->getPrivateMessageFilters())) {

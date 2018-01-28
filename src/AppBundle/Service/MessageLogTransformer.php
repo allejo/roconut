@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace AppBundle\Service;
 
+use AppBundle\MessageLogFilter\MessageLogFilterInterface;
+
 /**
  * A class dedicated to transforming logs from AnsiHtmlTransformer and then applying filters to only display only parts
  * of the log that are wanted.
@@ -32,21 +34,32 @@ class MessageLogTransformer
     const SHOW_CHAT_ONLY = self::HIDE_SERVER_MSG | self::HIDE_JOIN_PART | self::HIDE_KILL_MSG | self::HIDE_FLAG_ACTION | self::HIDE_PAUSING | self::HIDE_CLIENT_MSG;
     const SHOW_PRIVATE_MSG_ONLY = self::SHOW_CHAT_ONLY | self::HIDE_PUBLIC_MSG | self::HIDE_ADMIN_CHAT;
 
+    /** @var MessageLogFilterInterface[] */
+    private $registeredFilters = [];
     private $rawMessageLog;
-    private $filterFlags;
-    private $onlyPmsFrom;
+    private $filterFlags = 0;
+    private $onlyPmsFrom = [];
 
     private static $privateMessageRegex = '#>\[(?:\-&gt;([^]]*?)|([^]]*?)\-&gt;)\]#';
     private static $newLinePattern = "<span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>";
 
     /**
      * MessageLogTransformer constructor.
-     *
-     * @param string $rawMessageLog
      */
-    public function __construct($rawMessageLog)
+    public function __construct()
     {
-        $this->rawMessageLog = $rawMessageLog;
+    }
+
+    /**
+     * Register a MessageFilter with this class; this filter will be available to all instances of this transformer.
+     *
+     * @param MessageLogFilterInterface $filter
+     */
+    public function registerMessageFilter(MessageLogFilterInterface $filter)
+    {
+        $this->registeredFilters[] = $filter;
+
+        return $this;
     }
 
     /**
@@ -89,14 +102,20 @@ class MessageLogTransformer
 
     /**
      * Get the filtered message log.
+     *
+     * @throws \RuntimeException When no message log has been set through setRawMessage().
      */
     public function displayMessages(): string
     {
+        if ($this->rawMessageLog === null) {
+            throw new \RuntimeException(sprintf('No message log has been set. Use %s::setRawMessage() to set the message first.'));
+        }
+
         $this->censorPersonalInfo();
 
-        $flags = $this->filterFlags;
+        $flags = $this->filterFlags ?? 0;
 
-        if ($flags === null && empty($this->onlyPmsFrom)) {
+        if ($flags === 0 && empty($this->onlyPmsFrom)) {
             return $this->rawMessageLog;
         }
 
@@ -214,6 +233,18 @@ class MessageLogTransformer
         preg_match_all(self::$privateMessageRegex, $this->rawMessageLog, $conversations);
 
         return array_unique(array_filter($conversations[1]));
+    }
+
+    /**
+     * Set the message for the transformer to filter.
+     *
+     * @param string $rawMessageLog The HTML message returned by AnsiHtmlTransformer
+     */
+    public function setRawMessage(string $rawMessageLog): self
+    {
+        $this->rawMessageLog = $rawMessageLog;
+
+        return $this;
     }
 
     /**
