@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, { attr: { class: 'c-savemsgs-upload' } }) }}
     <div class="form-group">
         {{ form_row(form.title, { attr: {
             'class': 'form-control',
@@ -9,7 +9,7 @@
 
     <div class="form-group">
         {{ form_row(form.message, { attr: {
-            'class': 'form-control',
+            'class': 'form-control c-savemsgs-upload__pasteboard',
             'aria-describedby': 'messageHelp'
         }}) }}
         <small id="messageHelp" class="form-text text-muted">Copy paste your file contents</small>
