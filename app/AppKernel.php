@@ -1,5 +1,7 @@
 <?php
 
+use AppBundle\MessageLogFilter\MessageLogFilterInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -33,6 +35,15 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
+
+    protected function build(ContainerBuilder $container)
+    {
+        $container
+            ->registerForAutoconfiguration(MessageLogFilterInterface::class)
+            ->addTag(MessageLogFilterInterface::SERVICE_ID)
+        ;
+    }
+
 
     public function getRootDir()
     {
