@@ -54,6 +54,7 @@ class PasteFormType extends AbstractType
                     'Hide Public Chat' => MessageLogTransformer::HIDE_PUBLIC_MSG,
                     'Hide Pausing' => MessageLogTransformer::HIDE_PAUSING,
                     'Hide Client Messages' => MessageLogTransformer::HIDE_CLIENT_MSG,
+                    'Hide Timestamps' => MessageLogTransformer::HIDE_TIMESTAMPS,
                 ],
                 'multiple' => true,
                 'expanded' => true,

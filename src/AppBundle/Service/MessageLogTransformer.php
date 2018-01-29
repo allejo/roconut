@@ -29,6 +29,7 @@ class MessageLogTransformer
     const HIDE_PUBLIC_MSG = 256;
     const HIDE_PAUSING = 512;
     const HIDE_CLIENT_MSG = 1024;
+    const HIDE_TIMESTAMPS = 2048;
 
     // Shortcuts for common filter combinations
     const HIDE_ALL_ADMIN = self::HIDE_ADMIN_CHAT | self::HIDE_IP_ADDRESS;
@@ -41,7 +42,6 @@ class MessageLogTransformer
     private $filterFlags = 0;
     private $onlyPmsFrom = [];
 
-    private static $privateMessageRegex = '#>\[(?:\-&gt;([^]]*?)|([^]]*?)\-&gt;)\]#';
     private static $newLinePattern = "<span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">\r\n</span>";
 
     /**
@@ -139,11 +139,29 @@ class MessageLogTransformer
         $this->prepareMessages();
         $messages = $this->getMessagesAsArray();
 
+        $timestampRegex = '#.*?(\[[0-9\-\s:]+\]\s)(?:</span>)?\s*?#';
+        $timestampExtract = [];
+
         foreach ($messages as &$line) {
+            // If the line has a timestamp, we'll remove it before feeding it to our filters
+            if (preg_match($timestampRegex, $line)) {
+                preg_match_all($timestampRegex, $line, $timestampExtract);
+                $line = preg_replace($timestampRegex, '', $line);
+            }
+
             foreach ($this->registeredFilters as $filter) {
                 if (empty($line) || ($filter->shouldRun($flags) && $filter->filterLine($line))) {
                     break;
                 }
+            }
+
+            if (empty($line)) {
+                continue;
+            }
+
+            // If we had a timestamp and we're not supposed to hide them, add back in the timestamp
+            if (isset($timestampExtract[1][0]) && !($flags & self::HIDE_TIMESTAMPS)) {
+                $line = $timestampExtract[1][0] . $line;
             }
 
             if (!empty($this->onlyPmsFrom) || ($flags & self::HIDE_PRIVATE_MSG)) {
@@ -216,11 +234,11 @@ class MessageLogTransformer
         // If the message log has a timestamp heading, the spans of that element are consistent with the rest of the log
         // so we need to reformat things to be consistent and make our parsing easier.
         $matches = [];
-        preg_match_all('#(<span.+fg_white">\R*-+\R*.+\R*-+\R*)</span>#', $this->rawMessageLog, $matches);
+        preg_match_all('#(<span.+fg_white">\R*-+\R*.+\R*-+\R*(.*)?)</span>#', $this->rawMessageLog, $matches);
         $matches = array_filter($matches);
 
-        if (count($matches) === 2) {
-            $trimmed = trim($matches[1][0]);
+        if (count($matches) >= 2) {
+            $trimmed = trim(str_replace($matches[2][0], '', $matches[1][0]));
             $result = sprintf("%s\r\n</span>%s", $trimmed, self::$newLinePattern);
 
             $this->rawMessageLog = str_replace($matches[0][0], $result, $this->rawMessageLog);
@@ -237,7 +255,7 @@ class MessageLogTransformer
     private function processOddLineBreakClientMessages()
     {
         $matches = [];
-        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(Paused|Resumed|Got shot by.+)</span>#', $this->rawMessageLog, $matches);
+        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R.*?(Paused|Resumed|Saved messages.+|Got shot by.+)</span>#', $this->rawMessageLog, $matches);
 
         foreach ($matches[0] as $match) {
             $t = str_replace(["\r", "\n"], '', $match);
@@ -252,7 +270,24 @@ class MessageLogTransformer
      */
     private function getMessagesAsArray(): array
     {
-        $messages = preg_split('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R</span>#', $this->rawMessageLog);
+        // Standardize new lines to not be split in between an open <span> tag. Replace all line breaks with "!\n!" so
+        // we have something unique to look for.
+
+        $newLineStandardized = preg_replace_callback(
+            '#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R(\[[0-9\-\s:]+\]\s)?</span>#',
+            function ($matches) {
+                $string = "!\n!";
+
+                if (isset($matches[1])) {
+                    $string .= "<span class=\"ansi_color_bg_brblack ansi_color_fg_brwhite\">${matches[1]}</span>";
+                }
+
+                return $string;
+            },
+            $this->rawMessageLog
+        );
+
+        $messages = explode("!\n!", $newLineStandardized);
 
         if ($messages === false) {
             return [];

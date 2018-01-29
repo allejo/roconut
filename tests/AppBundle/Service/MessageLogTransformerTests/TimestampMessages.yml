@@ -1,0 +1,63 @@
+original: |-
+    [2018-01-28 02:40:10] \e[30mdownloading: http://images.bzflag.org/pmatous/greeble_mid%20copy.png\e[0;1m
+    [2018-01-28 02:40:10] \e[30mdownloading: http://images.bzflag.org/pmatous/sun_main_walls2.png\e[0;1m
+    [2018-01-28 02:40:10] \e[30mdownloading: http://images.bzflag.org/pmatous/thin_twoxfourwindows.png\e[0;1m
+    [2018-01-28 02:40:10] \e[30mdownloading: http://images.bzflag.org/pmatous/transparent/Trans-100.png\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36mGlobal login approved!\e[0;1m
+    [2018-01-28 02:40:11] \e[38;2;255;255;255mallejo\e[30m: joining as an observer\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36mBZFlag server 2.4.13.20180121-DEVEL-linux-gnu-SDL, http://BZFlag.org/\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*                                                                         *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*              Welcome to Planet MoFo: Apocalypse In Action!              *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*                                                                         *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*       Lots of Wing Jumps, No Shot Limits, & Reasonable Reasoning        *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*  No Team Killing, spamming, & *NO CHEATING* No flooding, No Asshattery  *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m* Registered players get more love - Register at http://forums.bzflag.org *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*          Like us on Facebook! facebook.com/ApocalypseInAction           *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m* The 'teamflaggeno' plugin is in use. YOUR team flag is your geno flag!  *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*          See '/help geno' as well as '/help' for more details!!         *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*   Be On The Look Out For The Exclusive & Elusive 'Air Strike' Flag!!!!  *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*                                                                         *\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36mInappropriate Callsigns Will Be Banned\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36m...This Space For Rent\e[0;1m
+    [2018-01-28 02:40:11] \e[33m\e[5m[SERVER->]\e[0;1m \e[36mYou are in observer mode.\e[0;1m
+    [2018-01-28 02:40:12] \e[38;2;0;255;0mhard tank\e[30m: grabbed Steamroller flag\e[0;1m
+    [2018-01-28 02:40:15] \e[38;2;0;255;0mPlanet-MoFo.com:4202\e[30m: grabbed Machine Gun flag\e[0;1m
+    [2018-01-28 02:40:16] \e[38;2;255;0;0mD3ad Turtle\e[30m: \e[37mkilled by \e[38;2;0;255;0mhard tank\e[37m\e[0;1m
+    [2018-01-28 02:40:17] \e[38;2;0;255;0mhard tank\e[30m: dropped Steamroller flag\e[0;1m
+    [2018-01-28 02:40:17] \e[38;2;0;255;0mhard tank\e[30m: \e[37mkilled by \e[38;2;255;0;0mRasputin\e[37m\e[0;1m
+    [2018-01-28 02:40:18] \e[38;2;0;255;0mPlanet-MoFo.com:4202\e[30m: dropped Machine Gun flag\e[0;1m
+    [2018-01-28 02:40:19] \e[38;2;0;255;0mhard tank\e[38;2;0;255;0m: \e[36mnab\e[0;1m
+    [2018-01-28 02:40:21] Saved messages to: /Volumes/Lelouch/Users/allejo/Library/Application Support/BZFlag/msglog-2018-01-28_02-40-21.txt\e[0;1m
+    [2018-01-28 02:40:22] \e[38;2;0;255;0mPlanet-MoFo.com:4202\e[30m: grabbed Machine Gun flag\e[0;1m
+    [2018-01-28 02:40:22] \e[38;2;0;255;0mhard tank\e[38;2;0;255;0m: \e[36mrasputin\e[0;1m
+    [2018-01-28 02:40:23] \e[38;2;0;255;0mPlanet-MoFo.com:4202\e[30m: dropped Machine Gun flag\e[0;1m
+    [2018-01-28 02:40:24] \e[38;2;0;255;0mhard tank\e[38;2;0;255;0m: \e[36mhix 1vs1\e[0;1m
+    [2018-01-28 02:40:26] \e[38;2;0;255;0mPlanet-MoFo.com:4202\e[30m: grabbed Machine Gun flag\e[0;1m
+    [2018-01-28 02:40:26] \e[38;2;0;255;0mTodos\e[30m: dropped Green Team flag\e[0;1m
+    [2018-01-28 02:40:26] \e[38;2;0;255;0mTodos\e[30m: \e[37mkilled by \e[38;2;255;0;0mD3ad Turtle\e[37m\e[0;1m
+    [2018-01-28 02:40:27] \e[38;2;0;255;0mhard tank\e[30m: grabbed Stealth flag\e[0;1m
+
+expected: |-
+    [2018-01-28 02:40:11] allejo: joining as an observer
+    [2018-01-28 02:40:12] hard tank: grabbed Steamroller flag
+    [2018-01-28 02:40:15] Planet-MoFo.com:4202: grabbed Machine Gun flag
+    [2018-01-28 02:40:16] D3ad Turtle: killed by hard tank
+    [2018-01-28 02:40:17] hard tank: dropped Steamroller flag
+    [2018-01-28 02:40:17] hard tank: killed by Rasputin
+    [2018-01-28 02:40:18] Planet-MoFo.com:4202: dropped Machine Gun flag
+    [2018-01-28 02:40:19] hard tank: nab
+    [2018-01-28 02:40:21] Saved messages to: [redacted]/msglog-2018-01-28_02-40-21.txt
+    [2018-01-28 02:40:22] Planet-MoFo.com:4202: grabbed Machine Gun flag
+    [2018-01-28 02:40:22] hard tank: rasputin
+    [2018-01-28 02:40:23] Planet-MoFo.com:4202: dropped Machine Gun flag
+    [2018-01-28 02:40:24] hard tank: hix 1vs1
+    [2018-01-28 02:40:26] Planet-MoFo.com:4202: grabbed Machine Gun flag
+    [2018-01-28 02:40:26] Todos: dropped Green Team flag
+    [2018-01-28 02:40:26] Todos: killed by D3ad Turtle
+    [2018-01-28 02:40:27] hard tank: grabbed Stealth flag
+
+filters:
+    - HIDE_SERVER_MSG
+    - HIDE_CLIENT_MSG

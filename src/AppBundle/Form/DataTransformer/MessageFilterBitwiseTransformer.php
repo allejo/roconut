@@ -48,6 +48,7 @@ class MessageFilterBitwiseTransformer implements DataTransformerInterface
             MessageLogTransformer::HIDE_PUBLIC_MSG,
             MessageLogTransformer::HIDE_PAUSING,
             MessageLogTransformer::HIDE_CLIENT_MSG,
+            MessageLogTransformer::HIDE_TIMESTAMPS,
         ];
 
         foreach ($filters as $filter) {
