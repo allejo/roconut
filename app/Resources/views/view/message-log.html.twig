@@ -5,13 +5,13 @@
 {% block body %}
     <div class="container">
         <div class="row mb-3">
-            <div class="col-md-6 mb-3 mb-md-0">
-                <h1 class="h2 m-0">{{ paste.title }}</h1>
+            <div class="col-md-8 mb-3 mb-md-0">
+                <h1 class="h2 m-0 text-overflow" title="{{ paste.title }}">{{ paste.title }}</h1>
                 <p class="m-0">
                     <small>by {{ paste.user.callsign }} on {{ paste.created | date('M d, Y h:i:sa') }}</small>
                 </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <section class="text-md-right">
                     {% if paste.user == app.user %}
                         <a class="btn btn-secondary"

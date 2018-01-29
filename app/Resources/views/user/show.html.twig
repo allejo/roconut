@@ -8,28 +8,19 @@
 
         <p>These are your messages that you have uploaded and have saved to your account. You will not see messages not saved to your account</p>
 
-        <table class="table table-striped">
-            <thead>
-                <th>Title</th>
-                <th>Created On</th>
-            </thead>
-
-            <tbody>
-                {% for paste in pastes %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('show_message_log', {id: paste.id, key: paste.encryptionKey}) }}">{{ paste.title }}</a>
-                        </td>
-                        <td>
-                            {{ paste.created | date('M d, Y h:ia') }}
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="2">You have no pastes</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% for paste in pastes %}
+            <div class="row py-1">
+                <div class="col-md-9 text-overflow">
+                    <a href="{{ path('show_message_log', {id: paste.id, key: paste.encryptionKey}) }}">{{ paste.title }}</a>
+                </div>
+                <div class="col-md-3">
+                    {{ paste.created | date('M d, Y h:ia') }}
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center">
+                <p class="mb0">You have no pastes</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
