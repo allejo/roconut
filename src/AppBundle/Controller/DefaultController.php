@@ -18,7 +18,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, MessageLogTransformer $logTransformer)
     {
         $sampleMessageLog = <<<MESSAGE
 
@@ -60,7 +60,6 @@ MESSAGE;
         $ansiLogTransformer = new AnsiHtmlTransformer();
         $cleanedMessage = $ansiLogTransformer->convert($sampleMessageLog);
 
-        $logTransformer = new MessageLogTransformer();
         $logTransformer->setRawMessage($cleanedMessage);
 
         // replace this example code with whatever you need
