@@ -179,7 +179,7 @@ class MessageLogTransformer
 
         $messages = array_filter($messages);
 
-        return '<span class="full-line">' . trim(implode("</span>\n<span class=\"full-line\">", $messages)) . '</span>';
+        return '<span class="console__line">' . trim(implode("</span>\n<span class=\"console__line\">", $messages)) . '</span>';
     }
 
     /**
@@ -264,6 +264,7 @@ class MessageLogTransformer
             'Resumed',
             'Saved messages.+',
             'Got shot by.+',
+            '\[redacted\].+',
         ];
 
         $matches = [];

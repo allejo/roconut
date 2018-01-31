@@ -21,22 +21,25 @@
         color: #ffffff;
         counter-reset: line;
         margin-bottom: 0;
+    }
+}
 
-        .full-line {
-            counter-increment: line;
+.console__line {
+    counter-increment: line;
+    display: inline-block;
+    margin-left: 3.25em;
 
-            &::before {
-                -webkit-user-select: none;
+    &::before {
+        -webkit-user-select: none;
 
-                border-right: 1px solid #ddd;
-                color: #888;
-                content: counter(line);
-                display: inline-block;
-                margin-right: 0.75em;
-                padding-right: 0.75em;
-                text-align: right;
-                width: 3em;
-            }
-        }
+        border-right: 1px solid #ddd;
+        color: #888;
+        content: counter(line);
+        display: inline-block;
+        margin-left: -3.75em;
+        padding-right: 0.75em;
+        position: absolute;
+        text-align: right;
+        width: 3em;
     }
 }
