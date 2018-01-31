@@ -139,6 +139,7 @@ class MessageLogTransformer
         $this->prepareMessages();
         $messages = $this->getMessagesAsArray();
 
+        // Matches, [YYYY-MM-DD HH:MM:SS]
         $timestampRegex = '#.*?(\[(?:\d{4}-\d{2}-\d{2})?\s?\d{2}:\d{2}:\d{2}\]\s)(?:</span>)?\s*?#';
         $timestampExtract = [];
 
@@ -176,7 +177,9 @@ class MessageLogTransformer
             }
         }
 
-        return trim(implode("\n", array_filter($messages)));
+        $messages = array_filter($messages);
+
+        return '<span class="full-line">' . trim(implode("</span>\n<span class=\"full-line\">", $messages)) . '</span>';
     }
 
     /**
