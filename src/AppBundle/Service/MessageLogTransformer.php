@@ -139,7 +139,7 @@ class MessageLogTransformer
         $this->prepareMessages();
         $messages = $this->getMessagesAsArray();
 
-        $timestampRegex = '#.*?(\[[0-9\-\s:]+\]\s)(?:</span>)?\s*?#';
+        $timestampRegex = '#.*?(\[(?:\d{4}-\d{2}-\d{2})?\s?\d{2}:\d{2}:\d{2}\]\s)(?:</span>)?\s*?#';
         $timestampExtract = [];
 
         foreach ($messages as &$line) {
