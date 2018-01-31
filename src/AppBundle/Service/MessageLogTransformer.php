@@ -254,8 +254,17 @@ class MessageLogTransformer
      */
     private function processOddLineBreakClientMessages()
     {
+        $clientMessages = [
+            'Time Expired',
+            'GAME OVER',
+            'Paused',
+            'Resumed',
+            'Saved messages.+',
+            'Got shot by.+',
+        ];
+
         $matches = [];
-        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R.*?(Paused|Resumed|Saved messages.+|Got shot by.+)</span>#', $this->rawMessageLog, $matches);
+        preg_match_all('#<span class="ansi_color_bg_brblack ansi_color_fg_brwhite">\R.*?(' . implode('|', $clientMessages) . ')</span>#', $this->rawMessageLog, $matches);
 
         foreach ($matches[0] as $match) {
             $t = str_replace(["\r", "\n"], '', $match);
