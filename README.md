@@ -29,7 +29,14 @@ The transformer supports both escape codes for colors (30-38) and ANSI RGB value
 
 ### Message Log Transformer
 
-The [MessageLogTransformer](src/AppBundle/Service/MessageLogTransformer.php) component is a class which parses and manipulates the HTML received from AnsiHtmlTransformer. At its core, it is a very delicate class with a list of complex regular expressions used to compare messages and filter them out as requested. This class will likely not work by itself and depends heavily on the format that AnsiHtmlTransformer returns.
+The [MessageLogTransformer](src/AppBundle/Service/MessageLogTransformer.php) component is a class which parses and manipulates the HTML received from AnsiHtmlTransformer. At its core, it is a very delicate class that attempts to standardize message log to a format that separate message filters can use to filter out respective messages. This class will likely not work by itself and depends heavily on the format that AnsiHtmlTransformer returns.
+
+Message filters are separate based on their purpose and are located in the `AppBundle\MessageLogFilter` namespace and must extend the `MessageLogFilterInterface`.
+
+- The `shouldRun()` method will be given the AND'd filter flags and should check if the respective filter has been requested; e.g. `$flags & MessageLogTransformer::HIDE_FLAG_ACTION`
+- The `filterLine()` method is run whenever the filter is used. If this method returns `true`, then propagation to the rest of the filters will be stopped and `$rawLine` should set to an empty string (something you need to manually do). Returning `false` will allow you to manipulate `$rawLine` and allow other filters to process this line also.
+
+Message filters are run in **no** particular order.
 
 ## License
 
