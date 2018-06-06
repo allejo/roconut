@@ -14,20 +14,26 @@
     pre {
         white-space: pre;
     }
+
+    .console__body {
+        overflow: auto;
+    }
 }
 
 .console__body {
     pre {
         color: #ffffff;
         counter-reset: line;
+        display: table;
         margin-bottom: 0;
+        width: 100%;
     }
 }
 
 .console__line {
     counter-increment: line;
-    display: inline-block;
-    margin-left: 3.25em;
+    display: table-row;
+    width: 100%;
 
     &::before {
         -webkit-user-select: none;
@@ -35,11 +41,18 @@
         border-right: 1px solid #ddd;
         color: #888;
         content: counter(line);
-        display: inline-block;
-        margin-left: -3.75em;
+        display: table-cell;
         padding-right: 0.75em;
-        position: absolute;
         text-align: right;
-        width: 3em;
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    & span:nth-of-type(1) {
+        padding-left: 0.75em;
+    }
+
+    span {
+        display: inline-block;
     }
 }
